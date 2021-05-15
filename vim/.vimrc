@@ -24,6 +24,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'sainnhe/sonokai'
 Plug 'preservim/nerdtree'
 Plug 'preservim/nerdcommenter'
+Plug 'christoomey/vim-tmux-navigator'
 
 call plug#end()
 
