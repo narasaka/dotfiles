@@ -5,10 +5,11 @@ set autoindent
 set nowrap
 set smartcase
 set noswapfile
-
 set showcmd
 set incsearch
 set clipboard=unnamedplus
+set splitright
+set splitbelow
 
 augroup numbertoggle
   autocmd!
@@ -37,5 +38,9 @@ colorscheme sonokai
 filetype plugin on
 
 "NERDTree
-nmap <C-\> :NERDTreeToggle<CR>
+nnoremap <C-\> :NERDTreeToggle<CR>
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 
