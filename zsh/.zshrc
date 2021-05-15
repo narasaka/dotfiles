@@ -36,5 +36,5 @@ alias cptemp='cp ~/prog/templates/temp.cpp solve.cpp'
 alias tmux='TERM=screen-256color-bce tmux'
 alias vim='nvim'
 
-. ~/prog/templates/mkcd.sh
+. ~/.scripts/mkcd.sh
 
