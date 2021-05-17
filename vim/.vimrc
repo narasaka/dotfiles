@@ -25,6 +25,7 @@ Plug 'sainnhe/sonokai'
 Plug 'preservim/nerdtree'
 Plug 'preservim/nerdcommenter'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'tpope/vim-fugitive'
 
 call plug#end()
 
