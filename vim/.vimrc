@@ -17,6 +17,8 @@ augroup numbertoggle
   autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
 augroup END
 
+packloadall
+
 "Vimplug
 call plug#begin('~/.vim/plugged')
 
@@ -24,8 +26,10 @@ call plug#begin('~/.vim/plugged')
 Plug 'sainnhe/sonokai'
 Plug 'preservim/nerdtree'
 Plug 'preservim/nerdcommenter'
-Plug 'christoomey/vim-tmux-navigator'
+"Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-fugitive'
+Plug 'prettier/vim-prettier', {'do': 'yarn install'}
+Plug 'sbdchd/neoformat'
 
 call plug#end()
 
@@ -54,3 +58,19 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
+"Statusline
+function! GitBranch()
+  return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
+endfunction
+
+function! StatuslineGit()
+  let l:branchname = GitBranch()
+  return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
+endfunction
+
+set statusline=
+set statusline+=%#PmenuSel#
+set statusline+=%{StatuslineGit()}
+set statusline+=%#LineNr#
+set statusline+=\ %f
+set statusline+=%m
