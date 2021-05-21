@@ -1,11 +1,13 @@
 call plug#begin('~/.config/nvim/autoload/plugged')
 
-	Plug 'sheerun/vim-polyglot'
 	Plug 'jiangmiao/auto-pairs'
-	Plug 'sainnhe/sonokai'
 	Plug 'preservim/nerdtree'
 	Plug 'preservim/nerdcommenter'
 	Plug 'prettier/vim-prettier', {'do': 'yarn install'}
+	Plug 'sainnhe/sonokai'
 	Plug 'sbdchd/neoformat'
+	Plug 'sheerun/vim-polyglot'
+	Plug 'tpope/vim-surround'
+	Plug 'tpope/vim-repeat'
 
 call plug#end()
