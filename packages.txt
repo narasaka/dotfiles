@@ -42,6 +42,7 @@ dolphin-plugins
 dosbox
 dosfstools
 drawpile
+droidcam
 dvd+rw-tools
 e2fsprogs
 ecryptfs-utils
@@ -145,6 +146,7 @@ lib32-ocl-icd
 lib32-v4l-utils
 lib32-vulkan-intel
 lib32-vulkan-radeon
+libappindicator-gtk3
 libcanberra
 libcanberra-gstreamer
 libcanberra-pulse
