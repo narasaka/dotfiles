@@ -1,21 +1,21 @@
 syntax enable
+set autoindent
+set clipboard=unnamedplus
+set cursorline
+set formatoptions-=cro
 set hidden
-set pumheight=10
 set iskeyword+=-
+set nu rnu
+set pumheight=10
+set smartindent
+set smarttab
 set splitbelow
 set splitright
-set t_Co=256
 set sw=2
-set ts=2
-set smarttab
-set smartindent
-set autoindent
-set nu rnu
-set cursorline
-set updatetime=300
+set t_Co=256
 set timeoutlen=500
-set formatoptions-=cro
-set clipboard=unnamedplus
+set ts=2
+set updatetime=300
 
 function! GitBranch()
   return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
