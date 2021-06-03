@@ -1,3 +1,5 @@
 [user]
 	name = Nathanael Tehilla
 	email = 61931072+narasaka@users.noreply.github.com
+[init]
+	defaultBranch = master
