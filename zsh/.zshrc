@@ -10,7 +10,7 @@ ZSH_THEME="dpoggi"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git)
 
-#sources
+# sources
 source $ZSH/oh-my-zsh.sh
 source /usr/share/nvm/init-nvm.sh
 
@@ -27,14 +27,19 @@ export TIMEFMT=$'\nreal\t%E\nuser\t%U\nsys\t%S'
    export EDITOR='mvim'
  fi
 
+# vi bindings
+#set -o vi
+
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
+# aliases
 alias gg='g++ -std=c++17 -Wshadow -Wall -O2 -Wno-unused-result'
 alias gf='g++ -std=c++17 -Wshadow -Wall -g -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEGUG'
 alias cptemp='cp ~/prog/templates/temp.cpp solve.cpp'
 alias tmux='TERM=screen-256color-bce tmux'
 alias vim='nvim'
 
+# refs
 . ~/.scripts/mkcd.sh
 
