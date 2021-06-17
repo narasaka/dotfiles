@@ -1,6 +1,6 @@
 call plug#begin('~/.config/nvim/autoload/plugged')
 
-	Plug 'jiangmiao/auto-pairs'
+	"Plug 'jiangmiao/auto-pairs'
 	Plug 'preservim/nerdcommenter'
 	Plug 'preservim/nerdtree'
 	Plug 'prettier/vim-prettier', {'do': 'yarn install'}
