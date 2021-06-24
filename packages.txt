@@ -56,6 +56,7 @@ ffmpegthumbs
 file
 filelight
 filesystem
+filezilla
 findutils
 firefox
 flex
@@ -68,6 +69,7 @@ gettext
 gimp
 glibc
 gnome-icon-theme
+gnome-keyring
 gnome-themes-extra
 google-chrome
 grep
@@ -134,7 +136,6 @@ lib32-gamemode
 lib32-giflib
 lib32-gst-plugins-base-libs
 lib32-libcanberra
-lib32-libcanberra-pulse
 lib32-libva-intel-driver
 lib32-libva-mesa-driver
 lib32-libva-vdpau-driver
@@ -148,8 +149,6 @@ lib32-vulkan-intel
 lib32-vulkan-radeon
 libappindicator-gtk3
 libcanberra
-libcanberra-gstreamer
-libcanberra-pulse
 libdvdcss
 libktorrent
 libpqxx
@@ -219,6 +218,7 @@ ntfs-3g
 ntp
 numlockx
 nvm
+obs-studio
 ocl-icd
 okular
 openresolv
@@ -234,6 +234,7 @@ pamac-gtk
 pamac-snap-plugin
 pamac-tray-icon-plasma
 partitionmanager
+pass
 patch
 pciutils
 perl
@@ -281,7 +282,6 @@ sddm-kcm
 sed
 shadow
 shadowfox-updater
-simple-droidcam-client
 skanlite
 snapd
 snapd-glib
@@ -291,6 +291,7 @@ speedtest-cli
 spotify
 sshfs
 steam-manjaro
+steam-native
 stow
 sudo
 sysfsutils
@@ -322,6 +323,7 @@ unzip
 usb_modeswitch
 usbutils
 util-linux
+v4l2loopback-utils
 vcdimager
 vi
 visual-studio-code-bin
@@ -332,6 +334,8 @@ wallpapers-2018
 wallpapers-juhraya
 wget
 which
+wine-gecko
+wine-mono
 wine-staging
 winetricks
 wpa_supplicant
