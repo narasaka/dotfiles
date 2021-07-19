@@ -39,6 +39,7 @@ alias gf='g++ -std=c++17 -Wshadow -Wall -g -fsanitize=address -fsanitize=undefin
 alias cptemp='cp ~/prog/templates/temp.cpp solve.cpp'
 alias tmux='TERM=screen-256color-bce tmux'
 alias vim='nvim'
+alias league='sysctl -w abi.vsyscall32=0'
 
 # refs
 . ~/.scripts/mkcd.sh
