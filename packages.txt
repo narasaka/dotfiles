@@ -143,6 +143,7 @@ lib32-libxslt
 lib32-mesa-demos
 lib32-mesa-vdpau
 lib32-mpg123
+lib32-nvidia-utils
 lib32-ocl-icd
 lib32-v4l-utils
 lib32-vulkan-intel
@@ -163,6 +164,8 @@ linux59
 linux59-headers
 locatec
 logrotate
+lshw
+lua
 lutris
 lvm2
 m4
@@ -217,6 +220,8 @@ nss-mdns
 ntfs-3g
 ntp
 numlockx
+nvidia-dkms-performance
+nvidia-settings-performance
 nvm
 obs-studio
 ocl-icd
@@ -229,9 +234,7 @@ oxygen-icons
 p7zip
 pacman
 pamac-cli
-pamac-flatpak-plugin
 pamac-gtk
-pamac-snap-plugin
 pamac-tray-icon-plasma
 partitionmanager
 pass
@@ -260,6 +263,7 @@ psmisc
 pulseaudio-bluetooth
 pulseaudio-ctl
 pulseaudio-zeroconf
+python-magic
 python-pillow
 python-pip
 python-pyqt5
@@ -270,6 +274,7 @@ qt5-imageformats
 qt5-virtualkeyboard
 quicktile
 r
+r8168-dkms
 reiserfsprogs
 rsync
 ruby
@@ -326,6 +331,8 @@ util-linux
 v4l2loopback-utils
 vcdimager
 vi
+virtualbox
+virtualbox-guest-iso
 visual-studio-code-bin
 vlc
 vulkan-intel
@@ -335,6 +342,8 @@ wallpapers-juhraya
 wget
 which
 wine-gecko
+wine-lol
+wine-lol-glibc
 wine-mono
 wine-staging
 winetricks
