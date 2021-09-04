@@ -28,6 +28,7 @@ Plug 'preservim/nerdtree'
 Plug 'preservim/nerdcommenter'
 "Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
 Plug 'prettier/vim-prettier', {'do': 'yarn install'}
 Plug 'sbdchd/neoformat'
 
@@ -74,3 +75,20 @@ set statusline+=%{StatuslineGit()}
 set statusline+=%#LineNr#
 set statusline+=\ %f
 set statusline+=%m
+
+"Cursor
+if &term =~ "^xterm"
+	let &t_SI .= "\<Esc>[6 q"
+	let &t_EI .= "\<Esc>[2 q"
+endif
+
+"Yank to clip
+let s:clip = '/mnt/c/Windows/System32/clip.exe'
+if executable(s:clip)
+	augroup WSLYank
+		autocmd!
+		autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
+	augroup END
+endif
+
+
