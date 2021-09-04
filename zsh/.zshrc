@@ -8,14 +8,16 @@ ZSH_THEME="dpoggi"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git web-search)
+plugins=(git web-search nvm)
 
 # sources
 source $ZSH/oh-my-zsh.sh
-source /usr/share/nvm/init-nvm.sh
 
 # User configuration
 
+export DISPLAY=127.0.0.1:0.0
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 export EDITOR='vim'
 export TIMEFMT=$'\nreal\t%E\nuser\t%U\nsys\t%S'
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -38,9 +40,9 @@ alias gg='g++ -std=c++17 -Wshadow -Wall -O2 -Wno-unused-result'
 alias gf='g++ -std=c++17 -Wshadow -Wall -g -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEGUG'
 alias cptemp='cp ~/prog/templates/temp.cpp solve.cpp'
 alias tmux='TERM=screen-256color-bce tmux'
-alias vim='nvim'
+#alias vim='nvim'
 alias league='sudo sysctl -w abi.vsyscall32=0'
+alias python='python3'
+alias wh='/mnt/c/Users/given'
 
-# refs
-. ~/.scripts/mkcd.sh
-
+cd
