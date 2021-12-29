@@ -39,10 +39,14 @@ export TIMEFMT=$'\nreal\t%E\nuser\t%U\nsys\t%S'
 alias gg='g++ -std=c++17 -Wshadow -Wall -O2 -Wno-unused-result'
 alias gf='g++ -std=c++17 -Wshadow -Wall -g -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEGUG'
 alias cptemp='cp ~/prog/templates/temp.cpp solve.cpp'
+alias pytemp='cp ~/prog/templates/temp.py solve.py'
 alias tmux='TERM=screen-256color-bce tmux'
 #alias vim='nvim'
 alias league='sudo sysctl -w abi.vsyscall32=0'
 alias python='python3'
 alias wh='/mnt/c/Users/given'
+alias clip='clip.exe'
+alias pypy='pypy3'
 
-cd
+# stop cursor blink (print DECSCUSR)
+echo -e "\e[2 q"
