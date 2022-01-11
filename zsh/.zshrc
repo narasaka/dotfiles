@@ -50,3 +50,6 @@ alias pypy='pypy3'
 
 # stop cursor blink (print DECSCUSR)
 echo -e "\e[2 q"
+
+# refer(s)
+. ~/.scripts/aocinput.sh
