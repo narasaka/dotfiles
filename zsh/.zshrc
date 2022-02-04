@@ -49,7 +49,9 @@ alias clip='clip.exe'
 alias pypy='pypy3'
 
 # stop cursor blink (print DECSCUSR)
-echo -e "\e[2 q"
+#echo -e "\e[2 q"
 
 # refer(s)
 . ~/.scripts/aocinput.sh
+. $HOME/wordle/wordle.sh
+
