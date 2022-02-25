@@ -53,5 +53,6 @@ alias pypy='pypy3'
 
 # refer(s)
 . ~/.scripts/aocinput.sh
-. $HOME/wordle/wordle.sh
+. /home/narasaka/wordle-term/wordle.sh
 
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
