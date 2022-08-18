@@ -14,6 +14,7 @@ lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
 
 -- vim
+vim.opt.clipboard = "unnamedplus"
 vim.opt.ignorecase = true
 vim.opt.termguicolors = true
 vim.opt.title = true
@@ -44,6 +45,8 @@ lvim.builtin.treesitter.ensure_installed = {
   "java",
   "yaml",
 }
+
+lvim.lsp.automatic_servers_installation = true
 
 lvim.builtin.treesitter.ignore_install = { "haskell" }
 lvim.builtin.treesitter.highlight.enabled = true
