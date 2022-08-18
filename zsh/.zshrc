@@ -35,7 +35,7 @@ alias gf='g++ -std=c++17 -Wshadow -Wall -g -fsanitize=address -fsanitize=undefin
 alias cptemp='cp ~/prog/templates/temp.cpp solve.cpp'
 alias pytemp='cp ~/prog/templates/temp.py solve.py'
 alias tmux='TERM=screen-256color-bce tmux'
-#alias vim='nvim'
+alias vim='lvim'
 alias python='python3'
 alias clip='clip.exe'
 alias pypy='pypy3'
