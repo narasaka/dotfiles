@@ -12,12 +12,15 @@ lvim.builtin.notify.active = true
 lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
+lvim.builtin.treesitter.ignore_install = { "haskell" }
+lvim.builtin.treesitter.highlight.enabled = true
 
 -- keybinds
 lvim.keys.insert_mode["<A-j>"] = false
 lvim.keys.insert_mode["<A-k>"] = false
 lvim.keys.normal_mode["<A-j>"] = false
 lvim.keys.normal_mode["<A-k>"] = false
+lvim.keys.normal_mode["<C-s>"] = ":Prettier<cr>"
 lvim.keys.visual_block_mode["<A-j>"] = false
 lvim.keys.visual_block_mode["<A-k>"] = false
 lvim.keys.visual_block_mode["J"] = false
@@ -54,16 +57,23 @@ lvim.builtin.treesitter.ensure_installed = {
   "rust",
   "java",
   "yaml",
+  "astro"
 }
 
+-- lsp
 lvim.lsp.automatic_servers_installation = true
-
-lvim.builtin.treesitter.ignore_install = { "haskell" }
-lvim.builtin.treesitter.highlight.enabled = true
+local formatters = require "lvim.lsp.null-ls.formatters"
+formatters.setup {
+  {
+    command = "prettier",
+    args = { "--trailing-comma=es5", "--single-quote" },
+  }
+}
 
 -- Additional Plugins
 lvim.plugins = {
-    {"folke/tokyonight.nvim"},
-    {"tpope/vim-surround"},
-    {"tpope/vim-repeat"}
+  { "folke/tokyonight.nvim" },
+  { "tpope/vim-surround" },
+  { "tpope/vim-repeat" },
+  { "wuelnerdotexe/vim-astro" }
 }
