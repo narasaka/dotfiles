@@ -20,6 +20,9 @@ lvim.keys.insert_mode["<A-j>"] = false
 lvim.keys.insert_mode["<A-k>"] = false
 lvim.keys.normal_mode["<A-j>"] = false
 lvim.keys.normal_mode["<A-k>"] = false
+lvim.keys.normal_mode["<Leader>t"] = ":TodoTelescope<cr>"
+lvim.keys.normal_mode["t"] = ":TodoTrouble<cr>"
+lvim.keys.normal_mode["T"] = ":TroubleToggle<cr>"
 lvim.keys.normal_mode["<C-s>"] = ":Prettier<cr>"
 lvim.keys.visual_block_mode["<A-j>"] = false
 lvim.keys.visual_block_mode["<A-k>"] = false
@@ -27,7 +30,7 @@ lvim.keys.visual_block_mode["J"] = false
 lvim.keys.visual_block_mode["K"] = false
 
 -- vim
-vim.opt.clipboard = "unnamedplus"
+vim.opt.clipboard = ""
 vim.opt.ignorecase = true
 vim.opt.termguicolors = true
 vim.opt.title = true
@@ -38,7 +41,7 @@ vim.opt.expandtab = true
 vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
 vim.opt.cursorline = true
-vim.opt.relativenumber = false
+vim.opt.relativenumber = true
 vim.opt.wrap = false
 vim.opt.spell = false
 vim.opt.spelllang = "en"
@@ -73,7 +76,12 @@ formatters.setup {
 -- Additional Plugins
 lvim.plugins = {
   { "folke/tokyonight.nvim" },
+  { "folke/trouble.nvim" },
+  { "nvim-lua/plenary.nvim" },
+  { "folke/todo-comments.nvim",
+    event = "BufRead",
+    config = function() require("todo-comments").setup() end },
   { "tpope/vim-surround" },
   { "tpope/vim-repeat" },
-  { "wuelnerdotexe/vim-astro" }
+  { "wuelnerdotexe/vim-astro" },
 }
