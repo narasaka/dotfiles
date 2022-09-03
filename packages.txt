@@ -22,15 +22,18 @@ coreutils
 cpupower
 cronie
 cryptsetup
+dbeaver
 device-mapper
 dhclient
 dhcpcd
 diffutils
+direnv
 discord
 dmidecode
 dmraid
 dnsmasq
 docker
+docker-compose
 dolphin
 dolphin-plugins
 dosfstools
@@ -47,6 +50,7 @@ filelight
 filesystem
 findutils
 firefox
+flameshot
 flex
 fwupd
 gawk
@@ -55,6 +59,7 @@ gettext
 glibc
 glibc-locales
 gnome-themes-extra
+google-chrome
 grep
 grub
 grub-btrfs
@@ -151,6 +156,7 @@ mesa-vdpau
 mhwd
 mhwd-db
 milou
+min
 mkinitcpio-openswap
 mobile-broadband-provider-info
 modemmanager
@@ -202,6 +208,7 @@ plasma-workspace
 plasma-workspace-wallpapers
 poppler-data
 postgresql
+postman-bin
 powerdevil
 powertop
 print-manager
@@ -218,6 +225,7 @@ python-reportlab
 qt5-imageformats
 qt5-virtualkeyboard
 reiserfsprogs
+ripgrep
 rsync
 ruby
 rust
@@ -231,9 +239,9 @@ shadow
 skanlite
 snapd
 sof-firmware
-spectacle
 spectre-meltdown-checker
 spotify
+sqlitebrowser
 sshfs
 stow
 sudo
@@ -251,6 +259,7 @@ texinfo
 timeshift
 timeshift-autosnap-manjaro
 tmux
+tree
 ttf-dejavu
 ttf-droid
 ttf-inconsolata
@@ -264,6 +273,7 @@ usb_modeswitch
 usbutils
 util-linux
 vi
+visual-studio-code-bin
 vlc
 vulkan-intel
 vulkan-radeon
@@ -291,4 +301,5 @@ xorg-xinit
 xorg-xkill
 xz
 yakuake
+yank
 yay-git
