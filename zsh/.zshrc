@@ -1,7 +1,7 @@
 # Path to your oh-my-zsh installation.
-export ZSH="/home/narasaka/.oh-my-zsh"
+export ZSH="/Users/narasaka/.oh-my-zsh"
 
-ZSH_THEME="dpoggi"
+ZSH_THEME="garyblessington"
 
 plugins=(git web-search nvm)
 
@@ -10,8 +10,6 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 export EDITOR='vi'
 export TIMEFMT=$'\nreal\t%E\nuser\t%U\nsys\t%S'
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -42,4 +40,11 @@ alias pypy='pypy3'
 
 # refer(s)
 
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/narasaka/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/narasaka/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/narasaka/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/narasaka/google-cloud-sdk/completion.zsh.inc'; fi
