@@ -1,5 +1,11 @@
 lvim.leader = "space"
 
+-- override
+vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "tsserver", "denols" })
+local lspconfig = require "lspconfig"
+require("lvim.lsp.manager").setup("tsserver", { root_dir = lspconfig.util.root_pattern("package.json") })
+require("lvim.lsp.manager").setup("denols", { root_dir = lspconfig.util.root_pattern("deno.json") })
+
 -- general
 lvim.log.level = "warn"
 lvim.format_on_save = false
@@ -47,26 +53,26 @@ vim.opt.spell = false
 vim.opt.spelllang = "en"
 
 -- if you don't want all the parsers change this to a table of the ones you want
-lvim.builtin.treesitter.ensure_installed = {
-  "bash",
-  "c",
-  "javascript",
-  "json",
-  "lua",
-  "python",
-  "typescript",
-  "tsx",
-  "css",
-  "rust",
-  "java",
-  "yaml",
-  "astro"
-}
+-- lvim.builtin.treesitter.ensure_installed = {
+--   "bash",
+--   "c",
+--   "javascript",
+--   "json",
+--   "lua",
+--   "python",
+--   "typescript",
+--   "tsx",
+--   "css",
+--   "rust",
+--   "java",
+--   "yaml",
+--   "astro"
+-- }
 
 -- lsp
-lvim.lsp.automatic_servers_installation = true
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
+  { command = "black" },
   {
     command = "prettier",
     args = { "--trailing-comma=es5", "--single-quote" },
@@ -77,7 +83,6 @@ formatters.setup {
 lvim.plugins = {
   { "folke/tokyonight.nvim" },
   { "folke/trouble.nvim" },
-  { "nvim-lua/plenary.nvim" },
   { "folke/todo-comments.nvim",
     event = "BufRead",
     config = function() require("todo-comments").setup() end },
