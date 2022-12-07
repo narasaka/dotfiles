@@ -89,4 +89,5 @@ lvim.plugins = {
   { "tpope/vim-surround" },
   { "tpope/vim-repeat" },
   { "wuelnerdotexe/vim-astro" },
+  { "christoomey/vim-tmux-navigator" }
 }
