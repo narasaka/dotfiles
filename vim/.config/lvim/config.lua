@@ -1,10 +1,12 @@
 lvim.leader = "space"
 
--- override
-vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "tsserver", "denols" })
+-- overrides
+vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "tsserver", "denols", "clangd" })
 local lspconfig = require "lspconfig"
 require("lvim.lsp.manager").setup("tsserver", { root_dir = lspconfig.util.root_pattern("package.json") })
 require("lvim.lsp.manager").setup("denols", { root_dir = lspconfig.util.root_pattern("deno.json") })
+require("luasnip").filetype_extend("typescriptreact", { "html" })
+require("luasnip").filetype_extend("typescript", { "javascript" })
 
 -- general
 lvim.log.level = "warn"
@@ -76,6 +78,7 @@ formatters.setup {
   {
     command = "prettier",
     args = { "--trailing-comma=es5", "--single-quote" },
+    filetypes = { "typescript", "typescriptreact", "javascript", "astro" },
   }
 }
 
@@ -89,5 +92,35 @@ lvim.plugins = {
   { "tpope/vim-surround" },
   { "tpope/vim-repeat" },
   { "wuelnerdotexe/vim-astro" },
-  { "christoomey/vim-tmux-navigator" }
+  { "christoomey/vim-tmux-navigator" },
+  {
+    "zbirenbaum/copilot.lua",
+    event = "VimEnter",
+    config = function()
+      vim.defer_fn(function()
+        require("copilot").setup(
+          {
+            suggestion = {
+              enabled = true,
+              auto_trigger = true,
+              debounce = 75,
+              keymap = {
+                accept = "<C-f>",
+                accept_word = false,
+                accept_line = false,
+                next = "<M-]>",
+                prev = "<M-[>",
+                dismiss = "<C-]>",
+              },
+            },
+          }
+        )
+      end, 100)
+    end,
+  },
+  { "zbirenbaum/copilot-cmp",
+    after = { "copilot.lua", "nvim-cmp" },
+  },
 }
+
+table.insert(lvim.builtin.cmp.sources, 1, { name = "copilot" })
