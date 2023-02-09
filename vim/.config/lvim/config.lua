@@ -11,7 +11,7 @@ require("luasnip").filetype_extend("typescript", { "javascript" })
 -- general
 lvim.log.level = "warn"
 lvim.format_on_save = false
-lvim.colorscheme = "tokyonight"
+lvim.colorscheme = "tokyonight-night"
 
 -- builtins
 lvim.builtin.alpha.active = true
@@ -20,6 +20,7 @@ lvim.builtin.notify.active = true
 lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
+lvim.builtin.nvimtree.setup.view.adaptive_size = false
 lvim.builtin.treesitter.ignore_install = { "haskell" }
 lvim.builtin.treesitter.highlight.enabled = true
 
@@ -78,7 +79,7 @@ formatters.setup {
   {
     command = "prettier",
     args = { "--trailing-comma=es5", "--single-quote" },
-    filetypes = { "typescript", "typescriptreact", "javascript", "astro" },
+    filetypes = { "typescript", "typescriptreact", "javascript", "astro", "css", "scss" },
   }
 }
 
@@ -121,6 +122,8 @@ lvim.plugins = {
   { "zbirenbaum/copilot-cmp",
     after = { "copilot.lua", "nvim-cmp" },
   },
+  { "lukas-reineke/indent-blankline.nvim" },
+  { 'olivercederborg/poimandres.nvim' }
 }
 
 table.insert(lvim.builtin.cmp.sources, 1, { name = "copilot" })

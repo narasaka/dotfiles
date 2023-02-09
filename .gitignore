@@ -3,4 +3,5 @@ zsh/.scripts/secret
 **/htop
 **/iterm2
 **/yarn
+**/karabiner
 vim/.config/configstore

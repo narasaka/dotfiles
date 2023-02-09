@@ -48,3 +48,5 @@ if [ -f '/Users/narasaka/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/narasa
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/narasaka/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/narasaka/google-cloud-sdk/completion.zsh.inc'; fi
+
+export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/15/bin
