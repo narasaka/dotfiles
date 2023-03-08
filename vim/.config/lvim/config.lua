@@ -3,8 +3,11 @@ lvim.leader = "space"
 -- overrides
 vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "tsserver", "denols", "clangd" })
 local lspconfig = require "lspconfig"
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.offsetEncoding = 'utf-8'
 require("lvim.lsp.manager").setup("tsserver", { root_dir = lspconfig.util.root_pattern("package.json") })
 require("lvim.lsp.manager").setup("denols", { root_dir = lspconfig.util.root_pattern("deno.json") })
+require("lvim.lsp.manager").setup("clangd", { capabilities = capabilities })
 require("luasnip").filetype_extend("typescriptreact", { "html" })
 require("luasnip").filetype_extend("typescript", { "javascript" })
 
@@ -16,7 +19,6 @@ lvim.colorscheme = "tokyonight-night"
 -- builtins
 lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "dashboard"
-lvim.builtin.notify.active = true
 lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
