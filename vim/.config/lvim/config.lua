@@ -8,6 +8,18 @@ capabilities.offsetEncoding = 'utf-8'
 require("lvim.lsp.manager").setup("tsserver", { root_dir = lspconfig.util.root_pattern("package.json") })
 require("lvim.lsp.manager").setup("denols", { root_dir = lspconfig.util.root_pattern("deno.json") })
 require("lvim.lsp.manager").setup("clangd", { capabilities = capabilities })
+require("lvim.lsp.manager").setup("tailwindcss", { 
+  settings = { 
+    tailwindCSS = { 
+      experimental = {
+        classRegex = {
+          {"cva\\(([^)]*)\\)",
+             "[\"'`]([^\"'`]*).*?[\"'`]"},
+        }
+      }
+    }
+  }
+})
 require("luasnip").filetype_extend("typescriptreact", { "html" })
 require("luasnip").filetype_extend("typescript", { "javascript" })
 
