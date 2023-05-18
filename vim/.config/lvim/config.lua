@@ -3,11 +3,8 @@ lvim.leader = "space"
 -- overrides
 vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "tsserver", "denols", "clangd" })
 local lspconfig = require "lspconfig"
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.offsetEncoding = 'utf-8'
-require("lvim.lsp.manager").setup("tsserver", { root_dir = lspconfig.util.root_pattern("package.json") })
-require("lvim.lsp.manager").setup("denols", { root_dir = lspconfig.util.root_pattern("deno.json") })
-require("lvim.lsp.manager").setup("clangd", { capabilities = capabilities })
+require("lvim.lsp.manager").setup("tsserver", { on_attach = on_attach, root_dir = lspconfig.util.root_pattern("package.json"), single_file_support = false })
+require("lvim.lsp.manager").setup("denols", { on_attach = on_attach, root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc") })
 require("lvim.lsp.manager").setup("tailwindcss", { 
   settings = { 
     tailwindCSS = { 
