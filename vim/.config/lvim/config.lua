@@ -3,15 +3,17 @@ lvim.leader = "space"
 -- overrides
 vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "tsserver", "denols", "clangd" })
 local lspconfig = require "lspconfig"
-require("lvim.lsp.manager").setup("tsserver", { on_attach = on_attach, root_dir = lspconfig.util.root_pattern("package.json"), single_file_support = false })
-require("lvim.lsp.manager").setup("denols", { on_attach = on_attach, root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc") })
-require("lvim.lsp.manager").setup("tailwindcss", { 
-  settings = { 
-    tailwindCSS = { 
+require("lvim.lsp.manager").setup("tsserver",
+  { on_attach = on_attach, root_dir = lspconfig.util.root_pattern("package.json"), single_file_support = false })
+require("lvim.lsp.manager").setup("denols",
+  { on_attach = on_attach, root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc") })
+require("lvim.lsp.manager").setup("tailwindcss", {
+  settings = {
+    tailwindCSS = {
       experimental = {
         classRegex = {
-          {"cva\\(([^)]*)\\)",
-             "[\"'`]([^\"'`]*).*?[\"'`]"},
+          { "cva\\(([^)]*)\\)",
+            "[\"'`]([^\"'`]*).*?[\"'`]" },
         }
       }
     }
@@ -101,9 +103,11 @@ formatters.setup {
 lvim.plugins = {
   { "folke/tokyonight.nvim" },
   { "folke/trouble.nvim" },
-  { "folke/todo-comments.nvim",
+  {
+    "folke/todo-comments.nvim",
     event = "BufRead",
-    config = function() require("todo-comments").setup() end },
+    config = function() require("todo-comments").setup() end
+  },
   { "tpope/vim-surround" },
   { "tpope/vim-repeat" },
   { "wuelnerdotexe/vim-astro" },
@@ -133,7 +137,8 @@ lvim.plugins = {
       end, 100)
     end,
   },
-  { "zbirenbaum/copilot-cmp",
+  {
+    "zbirenbaum/copilot-cmp",
     after = { "copilot.lua", "nvim-cmp" },
   },
   { "lukas-reineke/indent-blankline.nvim" },

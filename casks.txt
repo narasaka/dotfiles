@@ -1,0 +1,1 @@
+dbeaver-community discord docker flux iterm2 karabiner-elements min nordvpn numi obs postman raycast skype slack spotify transmission visual-studio-code
