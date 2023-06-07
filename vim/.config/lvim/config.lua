@@ -94,7 +94,6 @@ formatters.setup {
   { command = "black" },
   {
     command = "prettier",
-    args = { "--trailing-comma=es5", "--single-quote" },
     filetypes = { "typescript", "typescriptreact", "javascript", "astro", "css", "scss" },
   }
 }
