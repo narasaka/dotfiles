@@ -36,10 +36,21 @@ alias pypy='pypy3'
 [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
 [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
+export PATH=/Users/narasaka/.local/bin:$PATH
+export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/15/bin
+
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/narasaka/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/narasaka/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f '/Users/narasaka/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/narasaka/Downloads/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/Users/narasaka/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/narasaka/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f '/Users/narasaka/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/narasaka/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
 
-export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/15/bin
+# bun completions
+[ -s "/Users/narasaka/.bun/_bun" ] && source "/Users/narasaka/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# go
+export PATH=/Users/narasaka/go/bin:$PATH
