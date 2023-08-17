@@ -54,3 +54,10 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 # go
 export PATH=/Users/narasaka/go/bin:$PATH
+
+# pnpm
+export PNPM_HOME="/Users/narasaka/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
