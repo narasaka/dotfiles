@@ -111,38 +111,38 @@ lvim.plugins = {
   { "tpope/vim-repeat" },
   { "wuelnerdotexe/vim-astro" },
   { "christoomey/vim-tmux-navigator" },
-  {
-    "zbirenbaum/copilot.lua",
-    event = "VimEnter",
-    config = function()
-      vim.defer_fn(function()
-        require("copilot").setup(
-          {
-            suggestion = {
-              enabled = true,
-              auto_trigger = true,
-              debounce = 75,
-              keymap = {
-                accept = "<C-f>",
-                accept_word = false,
-                accept_line = false,
-                next = "<M-]>",
-                prev = "<M-[>",
-                dismiss = "<C-]>",
-              },
-            },
-          }
-        )
-      end, 100)
-    end,
-  },
-  {
-    "zbirenbaum/copilot-cmp",
-    after = { "copilot.lua", "nvim-cmp" },
-  },
+  -- {
+  --   "zbirenbaum/copilot.lua",
+  --   event = "VimEnter",
+  --   config = function()
+  --     vim.defer_fn(function()
+  --       require("copilot").setup(
+  --         {
+  --           suggestion = {
+  --             enabled = true,
+  --             auto_trigger = true,
+  --             debounce = 75,
+  --             keymap = {
+  --               accept = "<C-f>",
+  --               accept_word = false,
+  --               accept_line = false,
+  --               next = "<M-]>",
+  --               prev = "<M-[>",
+  --               dismiss = "<C-]>",
+  --             },
+  --           },
+  --         }
+  --       )
+  --     end, 100)
+  --   end,
+  -- },
+  -- {
+  --   "zbirenbaum/copilot-cmp",
+  --   after = { "copilot.lua", "nvim-cmp" },
+  -- },
   { "lukas-reineke/indent-blankline.nvim" },
   { "olivercederborg/poimandres.nvim" },
   { "nvim-treesitter/nvim-treesitter-context" }
 }
 
-table.insert(lvim.builtin.cmp.sources, 1, { name = "copilot" })
+-- table.insert(lvim.builtin.cmp.sources, 1, { name = "copilot" })
