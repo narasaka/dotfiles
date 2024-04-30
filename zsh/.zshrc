@@ -2,8 +2,16 @@
 export ZSH="/Users/narasaka/.oh-my-zsh"
 
 # ZSH theme + plugins
-ZSH_THEME="garyblessington"
-plugins=(git web-search nvm)
+ZSH_THEME="dpoggi"
+plugins=(git web-search nvm vi-mode)
+
+# vi-mode settings
+VI_MODE_RESET_PROMPT_ON_MODE_CHANGE=true
+VI_MODE_SET_CURSOR=true
+VI_MODE_CURSOR_NORMAL=2
+VI_MODE_CURSOR_VISUAL=6
+VI_MODE_CURSOR_INSERT=6
+VI_MODE_CURSOR_OPPEND=0
 
 # sources
 source $ZSH/oh-my-zsh.sh
