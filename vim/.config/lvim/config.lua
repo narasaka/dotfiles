@@ -19,6 +19,13 @@ require("lvim.lsp.manager").setup("tailwindcss", {
     }
   }
 })
+require("lvim.lsp.manager").setup("astro", {
+  init_options = {
+    typescript = {
+      tsdk = vim.fs.normalize("~/Library/pnpm/global/5/node_modules/typescript/lib")
+    }
+  }
+})
 require("luasnip").filetype_extend("typescriptreact", { "html" })
 require("luasnip").filetype_extend("typescript", { "javascript" })
 
