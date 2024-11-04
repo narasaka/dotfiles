@@ -54,6 +54,7 @@ lvim.keys.normal_mode["t"] = ":TodoTrouble<cr>"
 lvim.keys.normal_mode["T"] = ":TroubleToggle<cr>"
 lvim.keys.normal_mode["<Leader>y"] = "\"+y"
 lvim.keys.normal_mode["<Leader>Y"] = "\"+Y"
+lvim.keys.normal_mode["<Leader>w"] = nil
 lvim.keys.visual_block_mode["<A-j>"] = false
 lvim.keys.visual_block_mode["<A-k>"] = false
 lvim.keys.visual_block_mode["J"] = false
@@ -120,5 +121,7 @@ lvim.plugins = {
   { "christoomey/vim-tmux-navigator" },
   { "lukas-reineke/indent-blankline.nvim" },
   { "olivercederborg/poimandres.nvim" },
-  { "nvim-treesitter/nvim-treesitter-context" }
+  { "nvim-treesitter/nvim-treesitter-context" },
+  { "tpope/vim-dadbod" },
+  { "kristijanhusak/vim-dadbod-ui" }
 }
