@@ -3,10 +3,22 @@ lvim.leader = "space"
 -- overrides
 vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "tsserver", "denols", "clangd" })
 local lspconfig = require "lspconfig"
+
 require("lvim.lsp.manager").setup("tsserver",
   { on_attach = on_attach, root_dir = lspconfig.util.root_pattern("package.json"), single_file_support = false })
 require("lvim.lsp.manager").setup("denols",
-  { on_attach = on_attach, root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc") })
+  {
+    on_attach = function()
+      local active_clients = vim.lsp.get_active_clients()
+      for _, client in pairs(active_clients) do
+        if client.name == "tsserver" then
+          client.stop()
+        end
+      end
+    end,
+    root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc")
+  })
+
 require("lvim.lsp.manager").setup("tailwindcss", {
   settings = {
     tailwindCSS = {
