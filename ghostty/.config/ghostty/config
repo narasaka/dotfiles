@@ -1,1 +1,9 @@
+copy-on-select = true
+mouse-hide-while-typing = true
+macos-titlebar-proxy-icon = hidden
 theme = Jellybeans
+title = " "
+window-padding-x = 8
+window-padding-color = extend
+
+keybind = global:ctrl+`=toggle_quick_terminal
