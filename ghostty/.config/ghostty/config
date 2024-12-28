@@ -1,4 +1,5 @@
 copy-on-select = true
+font-feature = -calt
 mouse-hide-while-typing = true
 macos-titlebar-proxy-icon = hidden
 theme = Jellybeans
