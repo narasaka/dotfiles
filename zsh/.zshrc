@@ -36,7 +36,7 @@ alias gg='g++ -std=c++17 -Wshadow -Wall -O2 -Wno-unused-result'
 alias gf='g++ -std=c++17 -Wshadow -Wall -g -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEGUG'
 alias cptemp='cp ~/prog/templates/temp.cpp solve.cpp'
 alias pytemp='cp ~/prog/templates/temp.py solve.py'
-alias vim='lvim'
+alias vim='nvim'
 alias python='python3'
 alias pypy='pypy3'
 
