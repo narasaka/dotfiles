@@ -1,4 +1,6 @@
 copy-on-select = true
+cursor-style-blink = false
+font-family = FiraCode Nerd Font Mono
 font-feature = -calt
 mouse-hide-while-typing = true
 macos-titlebar-proxy-icon = hidden
