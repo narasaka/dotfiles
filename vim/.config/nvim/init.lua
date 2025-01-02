@@ -21,13 +21,39 @@ vim.opt.wrap = false
 vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
 
-vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
-vim.keymap.set('n', '<leader>q', '<cmd>q<CR>', { desc = '[Q]uit' })
-vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
-vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
-vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
-vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
-vim.keymap.set('n', '<leader>e', '<cmd>Oil<CR>')
+local map = vim.api.nvim_set_keymap
+local defaultOpts = { noremap = true, silent = true }
+map('n', '<Esc>', '<cmd>nohlsearch<CR>', defaultOpts)
+map('n', '<leader>q', '<cmd>q<CR>', { desc = '[Q]uit' })
+map('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
+map('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
+map('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
+map('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+map('n', '<leader>e', '<cmd>Oil<CR>', defaultOpts)
+map('n', 'gT', '<Cmd>BufferPrevious<CR>', defaultOpts)
+map('n', 'gt', '<Cmd>BufferNext<CR>', defaultOpts)
+map('n', 'g1', '<Cmd>BufferGoto 1<CR>', defaultOpts)
+map('n', 'g2', '<Cmd>BufferGoto 2<CR>', defaultOpts)
+map('n', 'g3', '<Cmd>BufferGoto 3<CR>', defaultOpts)
+map('n', 'g4', '<Cmd>BufferGoto 4<CR>', defaultOpts)
+map('n', 'g5', '<Cmd>BufferGoto 5<CR>', defaultOpts)
+map('n', 'g6', '<Cmd>BufferGoto 6<CR>', defaultOpts)
+map('n', 'g7', '<Cmd>BufferGoto 7<CR>', defaultOpts)
+map('n', 'g8', '<Cmd>BufferGoto 8<CR>', defaultOpts)
+map('n', 'g9', '<Cmd>BufferGoto 9<CR>', defaultOpts)
+map('n', 'g0', '<Cmd>BufferLast<CR>', defaultOpts)
+map('n', '<C-p>', '<Cmd>BufferPick<CR>', defaultOpts)
+map('n', '<C-s-p>', '<Cmd>BufferPickDelete<CR>', defaultOpts)
+map('n', '<leader>bp', '<Cmd>BufferPin<CR>', defaultOpts)
+map('n', '<leader>bc', '<Cmd>BufferClose<CR>', defaultOpts)
+map('n', '<leader>br', '<Cmd>BufferRestore<CR>', defaultOpts)
+map('n', '<leader>b<', '<Cmd>BufferMovePrevious<CR>', defaultOpts)
+map('n', '<leader>b>', '<Cmd>BufferMoveNext<CR>', defaultOpts)
+map('n', '<leader>bb', '<Cmd>BufferOrderByBufferNumber<CR>', defaultOpts)
+map('n', '<leader>bn', '<Cmd>BufferOrderByName<CR>', defaultOpts)
+map('n', '<leader>bd', '<Cmd>BufferOrderByDirectory<CR>', defaultOpts)
+map('n', '<leader>bl', '<Cmd>BufferOrderByLanguage<CR>', defaultOpts)
+map('n', '<leader>bw', '<Cmd>BufferOrderByWindowNumber<CR>', defaultOpts)
 
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
@@ -99,13 +125,10 @@ require('lazy').setup {
         },
       },
       spec = {
-        { '<leader>c', group = '[C]ode', mode = { 'n', 'x' } },
         { '<leader>d', group = '[D]ocument' },
-        { '<leader>r', group = '[R]ename' },
         { '<leader>s', group = '[S]earch' },
         { '<leader>w', group = '[W]orkspace' },
         { '<leader>t', group = '[T]oggle' },
-        { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
       },
     },
   },
@@ -127,7 +150,7 @@ require('lazy').setup {
     },
     config = function()
       require('telescope').setup {
-        defaults = { file_ignore_patterns = { 'node_modules' } },
+        defaults = { file_ignore_patterns = { 'node_modules', '.git', '.next' } },
         extensions = {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
@@ -309,7 +332,9 @@ require('lazy').setup {
       formatters_by_ft = {
         lua = { 'stylua' },
         python = { 'isort', 'black' },
-        javascript = { 'prettierd', 'prettier', stop_after_first = true },
+        javascript = { 'prettier' },
+        typescript = { 'prettier' },
+        typescriptreact = { 'prettier' },
       },
     },
   },
@@ -329,7 +354,7 @@ require('lazy').setup {
           {
             'rafamadriz/friendly-snippets',
             config = function()
-              require('luasnip.loaders.from_vscode').lazy_load()
+              require('luasnip.loaders.from_vscode').lazy_load { include = { 'html', 'typescriptreact' } }
             end,
           },
         },
@@ -457,9 +482,47 @@ require('lazy').setup {
       },
     },
   },
+  { 'lukas-reineke/indent-blankline.nvim' },
+  { 'christoomey/vim-tmux-navigator' },
+  { 'nvim-treesitter/nvim-treesitter-context' },
   {
-    'lukas-reineke/indent-blankline.nvim',
-    main = 'ibl',
-    opts = {},
+    'kristijanhusak/vim-dadbod-ui',
+    dependencies = {
+      { 'tpope/vim-dadbod', lazy = true },
+      { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
+    },
+    cmd = {
+      'DBUI',
+      'DBUIToggle',
+      'DBUIAddConnection',
+      'DBUIFindBuffer',
+    },
+    init = function()
+      vim.g.db_ui_use_nerd_fonts = 1
+    end,
+  },
+  {
+    'romgrk/barbar.nvim',
+    dependencies = {
+      'lewis6991/gitsigns.nvim',
+      'nvim-tree/nvim-web-devicons',
+    },
+    init = function()
+      vim.g.barbar_auto_setup = true
+    end,
+    opts = {
+      animation = false,
+    },
+  },
+  {
+    'goolord/alpha-nvim',
+    dependencies = { 'echasnovski/mini.icons' },
+    config = function()
+      require('alpha').setup(require('alpha.themes.startify').config)
+    end,
   },
 }
+
+local luasnip = require 'luasnip'
+luasnip.filetype_extend('typescriptreact', { 'html' })
+luasnip.filetype_extend('typescript', { 'javascript' })
