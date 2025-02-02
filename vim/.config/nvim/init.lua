@@ -54,6 +54,7 @@ map('n', '<leader>bn', '<Cmd>BufferOrderByName<CR>', defaultOpts)
 map('n', '<leader>bd', '<Cmd>BufferOrderByDirectory<CR>', defaultOpts)
 map('n', '<leader>bl', '<Cmd>BufferOrderByLanguage<CR>', defaultOpts)
 map('n', '<leader>bw', '<Cmd>BufferOrderByWindowNumber<CR>', defaultOpts)
+map('n', 'gl', '<Cmd>lua vim.diagnostic.open_float(0, {scope="line"})<CR>', defaultOpts)
 
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
@@ -165,7 +166,7 @@ require('lazy').setup {
       vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
       vim.keymap.set('n', '<leader>sf', function()
-        builtin.find_files { hidden = true, no_ignore = true, follow = true }
+        builtin.find_files { hidden = true }
       end, { desc = '[S]earch [F]iles' })
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
@@ -340,6 +341,7 @@ require('lazy').setup {
         javascript = { 'prettier' },
         typescript = { 'prettier' },
         typescriptreact = { 'prettier' },
+        sql = { 'sqlfmt' },
       },
     },
   },
