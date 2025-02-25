@@ -1,6 +1,6 @@
 [user]
 	name = Nathanael Tehilla Gunawan
-	email = 61931072+narasaka@users.noreply.github.com
+	email = me@narasaka.dev
 [init]
 	defaultBranch = main
 [filter "lfs"]
@@ -10,3 +10,5 @@
 	smudge = git-lfs smudge -- %f
 [push]
 	autoSetupRemote = true
+[commit]
+	gpgsign = true
