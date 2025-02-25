@@ -26,6 +26,7 @@ source $ZSH/oh-my-zsh.sh
 # misc
 export EDITOR='vi'
 export TIMEFMT=$'\nreal\t%E\nuser\t%U\nsys\t%S'
+export GPG_TTY=$(tty)
 
 # aliases
 alias gg='g++ -std=c++17 -Wshadow -Wall -O2 -Wno-unused-result'
