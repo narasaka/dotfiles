@@ -342,6 +342,7 @@ require('lazy').setup {
         typescript = { 'prettier' },
         typescriptreact = { 'prettier' },
         sql = { 'sqlfmt' },
+        markdown = { 'deno_fmt' },
       },
     },
   },
@@ -526,6 +527,18 @@ require('lazy').setup {
     dependencies = { 'echasnovski/mini.icons' },
     config = function()
       require('alpha').setup(require('alpha.themes.startify').config)
+    end,
+  },
+  {
+    'OXY2DEV/markview.nvim',
+    lazy = false,
+    config = function()
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = 'markdown',
+        callback = function()
+          vim.cmd 'silent! Markview Disable'
+        end,
+      })
     end,
   },
 }
