@@ -4,14 +4,6 @@ export ZSH="/Users/narasaka/.oh-my-zsh"
 ZSH_THEME="dpoggi"
 plugins=(git web-search vi-mode)
 
-# lazy load nvm
-export NVM_DIR="$HOME/.nvm"
-_lazy_nvm() {
-  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
-  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
-}
-alias nvm="unalias nvm && _lazy_nvm && nvm"
-
 # vi-mode
 VI_MODE_RESET_PROMPT_ON_MODE_CHANGE=true
 VI_MODE_SET_CURSOR=true
@@ -36,6 +28,7 @@ alias pytemp='cp ~/prog/templates/temp.py solve.py'
 alias vim='nvim'
 alias python='python3'
 alias pypy='pypy3'
+alias dbui='nvim +DBUI'
 
 # paths
 export PATH=/Users/narasaka/.local/bin:$PATH
