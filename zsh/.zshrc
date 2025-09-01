@@ -29,10 +29,10 @@ alias vim='nvim'
 alias python='python3'
 alias pypy='pypy3'
 alias dbui='nvim +DBUI'
+alias psql='psql-17'
 
 # paths
 export PATH=/Users/narasaka/.local/bin:$PATH
-export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/15/bin:/Users/narasaka/go/bin
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
