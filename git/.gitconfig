@@ -10,5 +10,3 @@
 	smudge = git-lfs smudge -- %f
 [push]
 	autoSetupRemote = true
-[commit]
-	gpgsign = true
