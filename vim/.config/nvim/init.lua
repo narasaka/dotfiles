@@ -279,6 +279,9 @@ require('lazy').setup {
           },
         },
         ts_ls = {
+          on_attach = function(client)
+            client.server_capabilities.documentFormattingProvider = false
+          end,
           root_dir = require('lspconfig').util.root_pattern { 'package.json', 'tsconfig.json' },
           single_file_support = false,
           settings = {},
@@ -299,6 +302,8 @@ require('lazy').setup {
             },
           },
         },
+        biome = {},
+        csharp_ls = {},
       }
 
       require('mason').setup()
@@ -338,9 +343,11 @@ require('lazy').setup {
       formatters_by_ft = {
         lua = { 'stylua' },
         python = { 'isort', 'black' },
-        javascript = { 'prettier' },
-        typescript = { 'prettier' },
-        typescriptreact = { 'prettier' },
+        astro = { 'biome', 'prettier' },
+        javascript = { 'biome', 'prettier' },
+        javascriptreact = { 'biome', 'prettier' },
+        typescript = { 'biome', 'prettier' },
+        typescriptreact = { 'biome', 'prettier' },
         sql = { 'sqlfmt' },
         markdown = { 'deno_fmt' },
       },
@@ -409,6 +416,7 @@ require('lazy').setup {
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
           { name = 'path' },
+          { name = 'supermaven' },
         },
       }
     end,
@@ -490,7 +498,23 @@ require('lazy').setup {
       },
     },
   },
-  { 'lukas-reineke/indent-blankline.nvim' },
+  {
+    'lukas-reineke/indent-blankline.nvim',
+    main = 'ibl',
+    ---@module "ibl"
+    ---@type ibl.config
+    opts = {
+      indent = { highlight = { 'CursorColumn', 'Whitespace' }, char = '' },
+      whitespace = {
+        highlight = {
+          'CursorColumn',
+          'Whitespace',
+        },
+        remove_blankline_trail = false,
+      },
+      scope = { enabled = false },
+    },
+  },
   { 'christoomey/vim-tmux-navigator' },
   { 'nvim-treesitter/nvim-treesitter-context' },
   {
@@ -539,6 +563,14 @@ require('lazy').setup {
           vim.cmd 'silent! Markview Disable'
         end,
       })
+    end,
+  },
+  {
+    'supermaven-inc/supermaven-nvim',
+    config = function()
+      require('supermaven-nvim').setup {
+        disable_keymaps = true,
+      }
     end,
   },
 }
