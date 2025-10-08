@@ -29,7 +29,6 @@ alias vim='nvim'
 alias python='python3'
 alias pypy='pypy3'
 alias dbui='nvim +DBUI'
-alias psql='psql-17'
 
 # paths
 export PATH=/Users/narasaka/.local/bin:$PATH
