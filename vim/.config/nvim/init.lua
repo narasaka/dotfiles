@@ -304,6 +304,7 @@ require('lazy').setup {
         },
         biome = {},
         csharp_ls = {},
+        ruff = {},
       }
 
       require('mason').setup()
@@ -342,7 +343,7 @@ require('lazy').setup {
       notify_on_error = false,
       formatters_by_ft = {
         lua = { 'stylua' },
-        python = { 'isort', 'black' },
+        python = { 'ruff' },
         astro = { 'biome', 'prettier' },
         javascript = { 'biome', 'prettier' },
         javascriptreact = { 'biome', 'prettier' },
@@ -423,10 +424,10 @@ require('lazy').setup {
   },
   {
     'wtfox/jellybeans.nvim',
+    lazy = false,
     priority = 1000,
     config = function()
-      require('jellybeans').setup()
-      vim.cmd.colorscheme 'jellybeans'
+      vim.cmd [[colorscheme jellybeans]]
     end,
   },
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
