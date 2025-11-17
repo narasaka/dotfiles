@@ -1,1 +1,1 @@
-dbeaver-community discord docker flux iterm2 karabiner-elements min nordvpn numi obs postman raycast skype slack spotify transmission visual-studio-code anydesk anytype font-fira-code-nerd-font foxglove-studio gimp handbrake httpie istat-menus warp wezterm whatsapp
+anydesk anytype balenaetcher beekeeper-studio cap cloudflare-warp cursor dotnet-sdk font-fira-code-nerd-font font-hack-nerd-font foxglove gcloud-cli ghostty gimp handbrake-app httpie-desktop inkscape legcord rustdesk tailscale-app vscodium@insiders windows-app zed zen zoom goreleaser/tap/goreleaser
