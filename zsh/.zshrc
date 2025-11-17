@@ -16,7 +16,7 @@ VI_MODE_CURSOR_OPPEND=0
 source $ZSH/oh-my-zsh.sh
 
 # misc
-export EDITOR='vi'
+export EDITOR='nvim'
 export TIMEFMT=$'\nreal\t%E\nuser\t%U\nsys\t%S'
 export GPG_TTY=$(tty)
 
@@ -29,6 +29,7 @@ alias vim='nvim'
 alias python='python3'
 alias pypy='pypy3'
 alias dbui='nvim +DBUI'
+alias clear='clear && clear'
 
 # paths
 export PATH=/Users/narasaka/.local/bin:$PATH
@@ -176,3 +177,18 @@ if [[ -o zle ]]; then
 
     [[ "${+functions[compdef]}" -ne 0 ]] && \compdef __zoxide_z_complete cd
 fi
+
+auto_venv() {
+  if [ -d ".venv" ]; then
+    # Only activate if not already active
+    if [ "$VIRTUAL_ENV" != "$PWD/.venv" ]; then
+      . ".venv/bin/activate"
+    fi
+  fi
+}
+
+chpwd() {
+  auto_venv
+}
+
+auto_venv
