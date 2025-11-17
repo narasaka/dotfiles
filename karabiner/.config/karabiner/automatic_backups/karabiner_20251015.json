@@ -27,16 +27,6 @@
                         "vendor_id": 9390
                     },
                     "ignore": true
-                },
-                {
-                    "identifiers": {
-                        "is_keyboard": true,
-                        "is_pointing_device": true,
-                        "product_id": 11015,
-                        "vendor_id": 6940
-                    },
-                    "ignore": false,
-                    "ignore_vendor_events": true
                 }
             ],
             "name": "Default profile",
