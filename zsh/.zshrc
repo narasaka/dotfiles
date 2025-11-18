@@ -1,4 +1,4 @@
-export ZSH="/Users/narasaka/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # zsh theme + plugins
 ZSH_THEME="dpoggi"
@@ -32,24 +32,24 @@ alias dbui='nvim +DBUI'
 alias clear='clear && clear'
 
 # paths
-export PATH=/Users/narasaka/.local/bin:$PATH
+export PATH=$HOME/.local/bin:$PATH
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 # lazy load Google Cloud SDK
-if [ -f '/Users/narasaka/Downloads/google-cloud-sdk/path.zsh.inc' ]; then
+if [ -f "$HOME/Downloads/google-cloud-sdk/path.zsh.inc" ]; then
   function _lazy_gcloud() {
-    . '/Users/narasaka/Downloads/google-cloud-sdk/path.zsh.inc'
-    . '/Users/narasaka/Downloads/google-cloud-sdk/completion.zsh.inc'
+    . "$HOME/Downloads/google-cloud-sdk/path.zsh.inc"
+    . "$HOME/Downloads/google-cloud-sdk/completion.zsh.inc"
   }
   alias gcloud="unalias gcloud && _lazy_gcloud && gcloud"
 fi
 
 # bun completions
-[ -s "/Users/narasaka/.bun/_bun" ] && source "/Users/narasaka/.bun/_bun"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 # pnpm setup
-export PNPM_HOME="/Users/narasaka/Library/pnpm"
+export PNPM_HOME="$HOME/Library/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 
 # f

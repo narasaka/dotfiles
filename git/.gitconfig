@@ -1,6 +1,6 @@
 [user]
-	name = Nathanael Tehilla Gunawan
-	email = me@narasaka.dev
+	name = YOUR_NAME_HERE
+	email = YOUR_EMAIL_HERE
 [init]
 	defaultBranch = main
 [filter "lfs"]

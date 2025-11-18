@@ -48,7 +48,8 @@ filetype plugin on
 
 "paths
 let g:python3_host_prog = expand("/usr/bin/python")
-let g:node_host_prog = expand("/home/narasaka/nvm/versions/node/v15.14.0/bin/node")
+" Node host program - commented out, will use system node or install via nvm
+" let g:node_host_prog = expand("$HOME/.nvm/versions/node/v20.0.0/bin/node")
 
 "NERDTree
 nnoremap <C-\> :NERDTreeToggle<CR>
