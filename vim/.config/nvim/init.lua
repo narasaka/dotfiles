@@ -417,7 +417,6 @@ require('lazy').setup {
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
           { name = 'path' },
-          { name = 'supermaven' },
         },
       }
     end,
@@ -564,14 +563,6 @@ require('lazy').setup {
           vim.cmd 'silent! Markview Disable'
         end,
       })
-    end,
-  },
-  {
-    'supermaven-inc/supermaven-nvim',
-    config = function()
-      require('supermaven-nvim').setup {
-        disable_keymaps = true,
-      }
     end,
   },
 }
