@@ -180,10 +180,11 @@ fi
 
 auto_venv() {
   if [ -d ".venv" ]; then
+    . ".venv/bin/activate"
     # Only activate if not already active
-    if [ "$VIRTUAL_ENV" != "$PWD/.venv" ]; then
-      . ".venv/bin/activate"
-    fi
+    # if [ "$VIRTUAL_ENV" != "$PWD/.venv" ]; then
+    #   . ".venv/bin/activate"
+    # fi
   fi
 }
 
