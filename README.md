@@ -1,47 +1,96 @@
-my configs managed by [stow](https://www.gnu.org/software/stow/manual/stow.html)
+# Kubeploy
 
-# dotfiles
+A self-hosted PaaS for Kubernetes. Deploy from git push with a clean web UI.
 
-Personal dotfiles for macOS development environment.
+## Features
 
-## Quick Start
+- **Git push to deploy** - Automatic builds and deployments via GitHub/GitLab webhooks
+- **Web UI** - Manage apps, builds, and deployments from a dark, terminal-inspired dashboard
+- **Real-time logs** - Stream build and runtime logs via WebSocket (xterm.js)
+- **Rollback** - One-click rollback to any previous deployment
+- **In-cluster builds** - Kaniko-based container builds, no Docker daemon needed
+- **Zero external deps** - SQLite database, single binary, single Helm install
+- **Ingress management** - Automatic Service and Ingress creation with optional TLS
 
-```bash
-git clone https://github.com/YOUR_USERNAME/dotfiles.git ~/dotfiles
-cd ~/dotfiles
-./fresh-install.sh
+## Architecture
+
+```
+Web UI (React) <-> API Server (Go/Chi) <-> K8s API
+                                        |
+                        +---------------+---------------+
+                        |               |               |
+                  Build Controller  Deploy Controller  Log Streamer
+                    (Kaniko)        (K8s Resources)    (WebSocket)
+                        |
+                    SQLite DB
 ```
 
-**📖 For detailed setup instructions, see [SETUP_GUIDE.md](SETUP_GUIDE.md)**
+## Quickstart
 
-## What's Included
+### Helm Install
 
-- **vim**: [lunarvim](https://www.lunarvim.org/) + neovim configs
-- **shell**: [oh-my-zsh](https://ohmyz.sh/) (zsh) with custom aliases and functions
-- **tmux**: custom configuration with Catppuccin theme
-- **terminals**: Ghostty, Wezterm
-- **window management**: yabai, sketchybar, karabiner
+```bash
+helm upgrade --install kubeploy ./deploy/helm/kubeploy \
+  --namespace kubeploy-system \
+  --create-namespace \
+  --set registry.url=ghcr.io \
+  --set registry.username=YOUR_USER \
+  --set registry.password=YOUR_TOKEN
+```
 
-## Components
+### Local Development
 
-- `git/` - Git configuration (⚠️ Update with your name/email)
-- `zsh/` - Zsh and Oh-My-Zsh configuration
-- `tmux/` - Tmux configuration and plugins
-- `vim/` - Vim, Neovim, and LunarVim configs
-- `ghostty/` - Ghostty terminal emulator config
-- `wezterm/` - Wezterm terminal emulator config
-- `karabiner/` - Keyboard customization (Karabiner-Elements)
-- `sketchybar/` - macOS menu bar replacement
+```bash
+# Start both API server and frontend dev server
+make dev
 
-## Installation Scripts
+# API runs on :8080, frontend on :5173 (proxies API)
+```
 
-- `fresh-install.sh` - Complete setup for new Mac (all-in-one)
-- `mac_primer.sh` - macOS system preferences
-- `install_mac_pkgs.sh` - Install all packages via Homebrew
-- `install.sh` - Symlink dotfiles using Stow
+### Docker Build
 
-## Management Scripts
+```bash
+make docker-build
+```
 
-- `updatemacpkgs.sh` - Update package lists from current system
-- `update-fresh-install.sh` - Regenerate fresh-install.sh
+## Configuration
 
+| Environment Variable | Default | Description |
+|---------------------|---------|-------------|
+| `KUBEPLOY_DEV` | `false` | Enable dev mode |
+| `KUBEPLOY_PORT` | `8080` | API server port |
+| `KUBEPLOY_DB_PATH` | `./kubeploy.db` | SQLite database path |
+| `KUBEPLOY_SESSION_SECRET` | auto-generated | Session encryption key |
+| `KUBEPLOY_NAMESPACE` | `kubeploy-system` | Kubeploy's namespace |
+| `KUBEPLOY_APP_NAMESPACE` | `kubeploy-apps` | Default app namespace |
+| `KUBEPLOY_REGISTRY_URL` | | Container registry URL |
+| `KUBEPLOY_REGISTRY_USERNAME` | | Registry username |
+| `KUBEPLOY_REGISTRY_PASSWORD` | | Registry password |
+
+## Tech Stack
+
+**Backend:** Go 1.22+, Chi router, SQLite (modernc.org/sqlite), client-go, nhooyr.io/websocket
+
+**Frontend:** React 18, TypeScript, Vite, Tailwind CSS, Zustand, xterm.js, Lucide icons
+
+**Infrastructure:** Kaniko (in-cluster builds), Helm chart, standard K8s resources (no CRDs)
+
+## API
+
+All routes under `/api/v1`. Auth via session cookie.
+
+- `POST /auth/setup` - Create initial admin user
+- `POST /auth/login` - Login
+- `GET /apps` - List apps
+- `POST /apps` - Create app
+- `POST /apps/:id/builds` - Trigger build
+- `WS /apps/:id/logs/ws` - Stream runtime logs
+- `WS /builds/:id/logs/ws` - Stream build logs
+- `POST /webhooks/github/:app_id` - GitHub push webhook
+- `POST /webhooks/gitlab/:app_id` - GitLab push webhook
+
+See full API reference in the source code.
+
+## License
+
+Apache 2.0

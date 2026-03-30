@@ -1,2 +1,30 @@
-zsh/.scripts/secret
-vim/.config/lvim/plugin/packer_compiled.lua
+# Go
+bin/
+*.exe
+*.test
+*.out
+
+# Frontend
+web/node_modules/
+web/dist/
+
+# Database
+*.db
+*.db-journal
+*.db-shm
+*.db-wal
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env
+.env
+.env.local
