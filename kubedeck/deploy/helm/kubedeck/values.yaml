@@ -1,0 +1,58 @@
+replicaCount: 1
+
+image:
+  repository: ghcr.io/kubedeck/kubedeck
+  tag: latest
+  pullPolicy: IfNotPresent
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+service:
+  type: ClusterIP
+  port: 8080
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  host: kubedeck.example.com
+  tls: false
+  tlsSecretName: ""
+
+persistence:
+  enabled: true
+  size: 1Gi
+  storageClass: ""
+  accessMode: ReadWriteOnce
+
+serviceAccount:
+  create: true
+  name: kubedeck
+  annotations: {}
+
+rbac:
+  create: true
+
+registry:
+  url: ""
+  username: ""
+  password: ""
+
+config:
+  defaultNamespace: kubedeck-apps
+  defaultDomain: ""
+  sessionSecret: ""
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
