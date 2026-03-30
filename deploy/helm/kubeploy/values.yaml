@@ -53,6 +53,21 @@ resources:
     cpu: 100m
     memory: 128Mi
 
+buildkit:
+  image:
+    repository: moby/buildkit
+    tag: v0.21.1
+  persistence:
+    size: 10Gi
+    storageClass: ""
+  resources:
+    requests:
+      memory: 512Mi
+      cpu: 250m
+    limits:
+      memory: 2Gi
+      cpu: "2"
+
 nodeSelector: {}
 tolerations: []
 affinity: {}

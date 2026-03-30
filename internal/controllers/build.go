@@ -6,6 +6,7 @@ import (
 	"log"
 	"time"
 
+	"github.com/kubeploy/kubeploy/internal/config"
 	"github.com/kubeploy/kubeploy/internal/k8s"
 	"github.com/kubeploy/kubeploy/internal/models"
 )
@@ -16,6 +17,7 @@ type BuildController struct {
 	settings  *models.SettingsStore
 	k8sClient *k8s.Client
 	deployer  *DeployController
+	cfg       *config.Config
 }
 
 func NewBuildController(
@@ -24,6 +26,7 @@ func NewBuildController(
 	settings *models.SettingsStore,
 	k8sClient *k8s.Client,
 	deployer *DeployController,
+	cfg *config.Config,
 ) *BuildController {
 	return &BuildController{
 		builds:    builds,
@@ -31,6 +34,7 @@ func NewBuildController(
 		settings:  settings,
 		k8sClient: k8sClient,
 		deployer:  deployer,
+		cfg:       cfg,
 	}
 }
 
@@ -81,12 +85,9 @@ func (c *BuildController) runBuild(app *models.App, build *models.Build) {
 		return
 	}
 
-	kanikoImage := "gcr.io/kaniko-project/executor:latest"
-	if img, err := c.settings.Get("kaniko_image"); err == nil && img != "" {
-		kanikoImage = img
-	}
+	buildkitAddr := c.cfg.BuildKitAddr
 
-	jobName, err := c.k8sClient.CreateKanikoJob(ctx, k8s.KanikoBuildOpts{
+	jobName, err := c.k8sClient.CreateBuildJob(ctx, k8s.BuildOpts{
 		BuildID:        build.ID,
 		AppID:          app.ID,
 		GitURL:         app.GitURL,
@@ -94,17 +95,18 @@ func (c *BuildController) runBuild(app *models.App, build *models.Build) {
 		DockerfilePath: app.DockerfilePath,
 		RegistryImage:  app.RegistryImage,
 		CommitSHA:      build.CommitSHA,
-		KanikoImage:    kanikoImage,
+		BuildKitAddr:   buildkitAddr,
 	})
 	if err != nil {
-		c.builds.AppendLogs(build.ID, fmt.Sprintf("Failed to create Kaniko job: %v\n", err))
+		c.builds.AppendLogs(build.ID, fmt.Sprintf("Failed to create build job: %v\n", err))
 		c.builds.SetFinished(build.ID, "failed")
 		c.apps.UpdateStatus(app.ID, "failed")
 		return
 	}
 
-	c.builds.SetKanikoJobName(build.ID, jobName)
-	c.builds.AppendLogs(build.ID, fmt.Sprintf("Created Kaniko job: %s\n", jobName))
+	c.builds.SetBuildJobName(build.ID, jobName)
+	c.builds.AppendLogs(build.ID, fmt.Sprintf("Created build job: %s\n", jobName))
+	c.builds.AppendLogs(build.ID, fmt.Sprintf("BuildKit daemon: %s\n", buildkitAddr))
 
 	// Watch job status
 	c.watchBuild(ctx, app, build, jobName)
@@ -165,9 +167,9 @@ func (c *BuildController) CancelBuild(build *models.Build) error {
 	c.builds.SetFinished(build.ID, "cancelled")
 	c.builds.AppendLogs(build.ID, "Build cancelled by user\n")
 
-	if c.k8sClient != nil && build.KanikoJobName != "" {
+	if c.k8sClient != nil && build.BuildJobName != "" {
 		ctx := context.Background()
-		c.k8sClient.DeleteJob(ctx, c.k8sClient.Namespace, build.KanikoJobName)
+		c.k8sClient.DeleteJob(ctx, c.k8sClient.Namespace, build.BuildJobName)
 	}
 
 	return nil

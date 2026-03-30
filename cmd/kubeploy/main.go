@@ -54,7 +54,7 @@ func main() {
 
 	// Initialize controllers
 	deployCtrl := controllers.NewDeployController(deploymentStore, appStore, k8sClient)
-	buildCtrl := controllers.NewBuildController(buildStore, appStore, settingsStore, k8sClient, deployCtrl)
+	buildCtrl := controllers.NewBuildController(buildStore, appStore, settingsStore, k8sClient, deployCtrl, cfg)
 
 	// Start cleanup controller
 	cleanupCtrl := controllers.NewCleanupController(k8sClient)

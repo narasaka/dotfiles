@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "kubeploy.fullname" . }}-buildkitd
+  labels:
+    {{- include "kubeploy.labels" . | nindent 4 }}
+    app.kubernetes.io/component: buildkitd
+spec:
+  serviceName: {{ include "kubeploy.fullname" . }}-buildkitd
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: buildkitd
+      {{- include "kubeploy.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: buildkitd
+        {{- include "kubeploy.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: buildkitd
+          image: "{{ .Values.buildkit.image.repository }}:{{ .Values.buildkit.image.tag }}"
+          args:
+            - --addr
+            - tcp://0.0.0.0:1234
+          ports:
+            - name: buildkit
+              containerPort: 1234
+              protocol: TCP
+          securityContext:
+            privileged: true
+          readinessProbe:
+            exec:
+              command:
+                - buildctl
+                - debug
+                - workers
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          {{- with .Values.buildkit.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          volumeMounts:
+            - name: buildkit-state
+              mountPath: /var/lib/buildkit
+  volumeClaimTemplates:
+    - metadata:
+        name: buildkit-state
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        {{- if .Values.buildkit.persistence.storageClass }}
+        storageClassName: {{ .Values.buildkit.persistence.storageClass }}
+        {{- end }}
+        resources:
+          requests:
+            storage: {{ .Values.buildkit.persistence.size }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "kubeploy.fullname" . }}-buildkitd
+  labels:
+    {{- include "kubeploy.labels" . | nindent 4 }}
+    app.kubernetes.io/component: buildkitd
+spec:
+  clusterIP: None
+  ports:
+    - name: buildkit
+      port: 1234
+      targetPort: 1234
+      protocol: TCP
+  selector:
+    app.kubernetes.io/component: buildkitd
+    {{- include "kubeploy.selectorLabels" . | nindent 4 }}

@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS builds (
     commit_author TEXT NOT NULL DEFAULT '',
     image_tag TEXT NOT NULL,
     status TEXT NOT NULL DEFAULT 'pending',
-    kaniko_job_name TEXT NOT NULL DEFAULT '',
+    build_job_name TEXT NOT NULL DEFAULT '',
     logs TEXT NOT NULL DEFAULT '',
     started_at DATETIME,
     finished_at DATETIME,
@@ -75,7 +75,7 @@ INSERT OR IGNORE INTO settings (key, value) VALUES
     ('registry_password', ''),
     ('default_namespace', 'kubeploy-apps'),
     ('default_domain', ''),
-    ('kaniko_image', 'gcr.io/kaniko-project/executor:latest'),
+    ('buildkit_addr', 'tcp://kubeploy-buildkitd:1234'),
     ('session_secret', lower(hex(randomblob(32))));
 
 CREATE INDEX IF NOT EXISTS idx_builds_app_id ON builds(app_id);

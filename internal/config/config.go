@@ -6,15 +6,16 @@ import (
 )
 
 type Config struct {
-	Dev             bool
-	Port            int
-	DBPath          string
-	SessionSecret   string
-	Namespace       string
-	AppNamespace    string
-	RegistryURL     string
-	RegistryUser    string
-	RegistryPass    string
+	Dev           bool
+	Port          int
+	DBPath        string
+	SessionSecret string
+	Namespace     string
+	AppNamespace  string
+	RegistryURL   string
+	RegistryUser  string
+	RegistryPass  string
+	BuildKitAddr  string
 }
 
 func Load() *Config {
@@ -28,6 +29,7 @@ func Load() *Config {
 		RegistryURL:   envStr("KUBEPLOY_REGISTRY_URL", ""),
 		RegistryUser:  envStr("KUBEPLOY_REGISTRY_USERNAME", ""),
 		RegistryPass:  envStr("KUBEPLOY_REGISTRY_PASSWORD", ""),
+		BuildKitAddr:  envStr("KUBEPLOY_BUILDKIT_ADDR", "tcp://kubeploy-buildkitd:1234"),
 	}
 }
 

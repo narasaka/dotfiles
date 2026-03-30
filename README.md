@@ -8,7 +8,7 @@ A self-hosted PaaS for Kubernetes. Deploy from git push with a clean web UI.
 - **Web UI** - Manage apps, builds, and deployments from a dark, terminal-inspired dashboard
 - **Real-time logs** - Stream build and runtime logs via WebSocket (xterm.js)
 - **Rollback** - One-click rollback to any previous deployment
-- **In-cluster builds** - Kaniko-based container builds, no Docker daemon needed
+- **In-cluster builds** - BuildKit-powered container builds, no Docker daemon needed
 - **Zero external deps** - SQLite database, single binary, single Helm install
 - **Ingress management** - Automatic Service and Ingress creation with optional TLS
 
@@ -20,7 +20,7 @@ Web UI (React) <-> API Server (Go/Chi) <-> K8s API
                         +---------------+---------------+
                         |               |               |
                   Build Controller  Deploy Controller  Log Streamer
-                    (Kaniko)        (K8s Resources)    (WebSocket)
+                   (BuildKit)       (K8s Resources)    (WebSocket)
                         |
                     SQLite DB
 ```
@@ -66,6 +66,7 @@ make docker-build
 | `KUBEPLOY_REGISTRY_URL` | | Container registry URL |
 | `KUBEPLOY_REGISTRY_USERNAME` | | Registry username |
 | `KUBEPLOY_REGISTRY_PASSWORD` | | Registry password |
+| `KUBEPLOY_BUILDKIT_ADDR` | `tcp://kubeploy-buildkitd:1234` | BuildKit daemon address |
 
 ## Tech Stack
 
@@ -73,7 +74,7 @@ make docker-build
 
 **Frontend:** React 18, TypeScript, Vite, Tailwind CSS, Zustand, xterm.js, Lucide icons
 
-**Infrastructure:** Kaniko (in-cluster builds), Helm chart, standard K8s resources (no CRDs)
+**Infrastructure:** BuildKit (in-cluster builds), Helm chart, standard K8s resources (no CRDs)
 
 ## API
 

@@ -15,7 +15,7 @@ type Build struct {
 	CommitAuthor  string     `db:"commit_author" json:"commit_author"`
 	ImageTag      string     `db:"image_tag" json:"image_tag"`
 	Status        string     `db:"status" json:"status"`
-	KanikoJobName string     `db:"kaniko_job_name" json:"kaniko_job_name"`
+	BuildJobName  string     `db:"build_job_name" json:"build_job_name"`
 	Logs          string     `db:"logs" json:"logs"`
 	StartedAt     *time.Time `db:"started_at" json:"started_at"`
 	FinishedAt    *time.Time `db:"finished_at" json:"finished_at"`
@@ -51,10 +51,10 @@ func (s *BuildStore) GetByID(id string) (*Build, error) {
 func (s *BuildStore) Create(build *Build) (*Build, error) {
 	result := &Build{}
 	err := s.db.QueryRowx(
-		`INSERT INTO builds (app_id, commit_sha, commit_message, commit_author, image_tag, status, kaniko_job_name)
+		`INSERT INTO builds (app_id, commit_sha, commit_message, commit_author, image_tag, status, build_job_name)
 		VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING *`,
 		build.AppID, build.CommitSHA, build.CommitMessage, build.CommitAuthor,
-		build.ImageTag, build.Status, build.KanikoJobName,
+		build.ImageTag, build.Status, build.BuildJobName,
 	).StructScan(result)
 	if err != nil {
 		return nil, fmt.Errorf("create build: %w", err)
@@ -82,7 +82,7 @@ func (s *BuildStore) AppendLogs(id, logLine string) error {
 	return err
 }
 
-func (s *BuildStore) SetKanikoJobName(id, jobName string) error {
-	_, err := s.db.Exec(`UPDATE builds SET kaniko_job_name=? WHERE id=?`, jobName, id)
+func (s *BuildStore) SetBuildJobName(id, jobName string) error {
+	_, err := s.db.Exec(`UPDATE builds SET build_job_name=? WHERE id=?`, jobName, id)
 	return err
 }

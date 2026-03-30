@@ -43,6 +43,8 @@ spec:
                   name: {{ include "kubeploy.fullname" . }}-secret
                   key: session-secret
             {{- end }}
+            - name: KUBEPLOY_BUILDKIT_ADDR
+              value: "tcp://{{ include "kubeploy.fullname" . }}-buildkitd:1234"
             {{- if .Values.registry.url }}
             - name: KUBEPLOY_REGISTRY_URL
               value: {{ .Values.registry.url }}

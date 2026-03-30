@@ -118,15 +118,19 @@ export default function Settings() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold mb-4">Build</h2>
+          <h2 className="text-lg font-semibold mb-4">Build Engine</h2>
           <div>
-            <label className="block text-sm font-medium mb-1.5">Kaniko Image</label>
+            <label className="block text-sm font-medium mb-1.5">BuildKit Address</label>
             <input
               type="text"
-              value={settings.kaniko_image || ''}
-              onChange={(e) => update('kaniko_image', e.target.value)}
+              value={settings.buildkit_addr || ''}
+              onChange={(e) => update('buildkit_addr', e.target.value)}
               className="w-full bg-surface border border-border rounded-md px-3 py-2 text-sm font-mono focus:outline-none focus:border-accent"
+              placeholder="tcp://kubeploy-buildkitd:1234"
             />
+            <p className="text-text-secondary text-xs mt-1.5">
+              Address of the BuildKit daemon for container image builds
+            </p>
           </div>
         </section>
       </div>

@@ -31,7 +31,7 @@ export interface Build {
   commit_author: string
   image_tag: string
   status: string
-  kaniko_job_name: string
+  build_job_name: string
   logs: string
   started_at: string | null
   finished_at: string | null

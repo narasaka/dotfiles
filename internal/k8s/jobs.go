@@ -9,7 +9,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-type KanikoBuildOpts struct {
+type BuildOpts struct {
 	BuildID        string
 	AppID          string
 	GitURL         string
@@ -17,10 +17,10 @@ type KanikoBuildOpts struct {
 	DockerfilePath string
 	RegistryImage  string
 	CommitSHA      string
-	KanikoImage    string
+	BuildKitAddr   string
 }
 
-func (c *Client) CreateKanikoJob(ctx context.Context, opts KanikoBuildOpts) (string, error) {
+func (c *Client) CreateBuildJob(ctx context.Context, opts BuildOpts) (string, error) {
 	shortID := opts.BuildID
 	if len(shortID) > 8 {
 		shortID = shortID[:8]
@@ -35,7 +35,16 @@ func (c *Client) CreateKanikoJob(ctx context.Context, opts KanikoBuildOpts) (str
 		destination = fmt.Sprintf("%s:%s", opts.RegistryImage, opts.CommitSHA[:7])
 	}
 
-	gitContext := fmt.Sprintf("git://%s#refs/heads/%s", opts.GitURL, opts.GitBranch)
+	buildkitAddr := opts.BuildKitAddr
+	if buildkitAddr == "" {
+		buildkitAddr = "tcp://kubeploy-buildkitd:1234"
+	}
+
+	gitRef := fmt.Sprintf("refs/heads/%s", opts.GitBranch)
+	dockerfile := opts.DockerfilePath
+	if dockerfile == "" {
+		dockerfile = "Dockerfile"
+	}
 
 	job := &batchv1.Job{
 		ObjectMeta: metav1.ObjectMeta{
@@ -57,26 +66,63 @@ func (c *Client) CreateKanikoJob(ctx context.Context, opts KanikoBuildOpts) (str
 					},
 				},
 				Spec: corev1.PodSpec{
-					Containers: []corev1.Container{
+					InitContainers: []corev1.Container{
 						{
-							Name:  "kaniko",
-							Image: opts.KanikoImage,
+							Name:  "git-clone",
+							Image: "alpine/git:latest",
+							Command: []string{"sh", "-c"},
 							Args: []string{
-								fmt.Sprintf("--dockerfile=%s", opts.DockerfilePath),
-								fmt.Sprintf("--context=%s", gitContext),
-								fmt.Sprintf("--destination=%s", destination),
-								"--cache=true",
-								"--snapshot-mode=redo",
+								fmt.Sprintf("git clone --depth 1 --branch %s %s /workspace", opts.GitBranch, opts.GitURL),
 							},
 							VolumeMounts: []corev1.VolumeMount{
 								{
+									Name:      "workspace",
+									MountPath: "/workspace",
+								},
+							},
+						},
+					},
+					Containers: []corev1.Container{
+						{
+							Name:  "buildkit",
+							Image: "moby/buildkit:v0.21.1",
+							Command: []string{"buildctl"},
+							Args: []string{
+								"--addr", buildkitAddr,
+								"build",
+								"--frontend", "dockerfile.v0",
+								"--local", "context=/workspace",
+								"--local", "dockerfile=/workspace",
+								"--opt", fmt.Sprintf("filename=%s", dockerfile),
+								"--output", fmt.Sprintf("type=image,name=%s,push=true", destination),
+							},
+							Env: []corev1.EnvVar{
+								{
+									Name:  "DOCKER_CONFIG",
+									Value: "/docker-config",
+								},
+							},
+							VolumeMounts: []corev1.VolumeMount{
+								{
+									Name:      "workspace",
+									MountPath: "/workspace",
+									ReadOnly:  true,
+								},
+								{
 									Name:      "docker-config",
-									MountPath: "/kaniko/.docker",
+									MountPath: "/docker-config",
+									ReadOnly:  true,
 								},
 							},
 						},
 					},
 					Volumes: []corev1.Volume{
+						{
+							Name: "workspace",
+							VolumeSource: corev1.VolumeSource{
+								EmptyDir: &corev1.EmptyDirVolumeSource{},
+							},
+						},
 						{
 							Name: "docker-config",
 							VolumeSource: corev1.VolumeSource{
@@ -94,7 +140,7 @@ func (c *Client) CreateKanikoJob(ctx context.Context, opts KanikoBuildOpts) (str
 
 	created, err := c.Clientset.BatchV1().Jobs(c.Namespace).Create(ctx, job, metav1.CreateOptions{})
 	if err != nil {
-		return "", fmt.Errorf("create kaniko job: %w", err)
+		return "", fmt.Errorf("create build job: %w", err)
 	}
 
 	return created.Name, nil
