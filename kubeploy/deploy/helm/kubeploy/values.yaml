@@ -1,0 +1,58 @@
+replicaCount: 1
+
+image:
+  repository: ghcr.io/kubeploy/kubeploy
+  tag: latest
+  pullPolicy: IfNotPresent
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+service:
+  type: ClusterIP
+  port: 8080
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  host: kubeploy.example.com
+  tls: false
+  tlsSecretName: ""
+
+persistence:
+  enabled: true
+  size: 1Gi
+  storageClass: ""
+  accessMode: ReadWriteOnce
+
+serviceAccount:
+  create: true
+  name: kubeploy
+  annotations: {}
+
+rbac:
+  create: true
+
+registry:
+  url: ""
+  username: ""
+  password: ""
+
+config:
+  defaultNamespace: kubeploy-apps
+  defaultDomain: ""
+  sessionSecret: ""
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+nodeSelector: {}
+tolerations: []
+affinity: {}

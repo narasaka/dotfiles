@@ -1,0 +1,98 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "kubeploy.fullname" . }}
+  labels:
+    {{- include "kubeploy.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "kubeploy.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "kubeploy.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "kubeploy.serviceAccountName" . }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          env:
+            - name: KUBEPLOY_PORT
+              value: "8080"
+            - name: KUBEPLOY_DB_PATH
+              value: "/data/kubeploy.db"
+            - name: KUBEPLOY_NAMESPACE
+              value: {{ .Release.Namespace }}
+            - name: KUBEPLOY_APP_NAMESPACE
+              value: {{ .Values.config.defaultNamespace | default "kubeploy-apps" }}
+            {{- if .Values.config.sessionSecret }}
+            - name: KUBEPLOY_SESSION_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "kubeploy.fullname" . }}-secret
+                  key: session-secret
+            {{- end }}
+            {{- if .Values.registry.url }}
+            - name: KUBEPLOY_REGISTRY_URL
+              value: {{ .Values.registry.url }}
+            - name: KUBEPLOY_REGISTRY_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "kubeploy.fullname" . }}-secret
+                  key: registry-username
+            - name: KUBEPLOY_REGISTRY_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "kubeploy.fullname" . }}-secret
+                  key: registry-password
+            {{- end }}
+          livenessProbe:
+            httpGet:
+              path: /api/v1/auth/check
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /api/v1/auth/check
+              port: http
+            initialDelaySeconds: 3
+            periodSeconds: 10
+          volumeMounts:
+            - name: data
+              mountPath: /data
+          {{- with .Values.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      volumes:
+        - name: data
+          {{- if .Values.persistence.enabled }}
+          persistentVolumeClaim:
+            claimName: {{ include "kubeploy.fullname" . }}-data
+          {{- else }}
+          emptyDir: {}
+          {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
