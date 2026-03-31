@@ -234,7 +234,7 @@ require('lazy').setup {
           config_mag('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
           local client = vim.lsp.get_client_by_id(event.data.client_id)
-          if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
+          if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
             local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
             vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
               buffer = event.buf,
@@ -451,17 +451,25 @@ require('lazy').setup {
   },
   {
     'nvim-treesitter/nvim-treesitter',
+    branch = 'main',
+    lazy = false,
     build = ':TSUpdate',
-    main = 'nvim-treesitter.configs',
-    opts = {
-      ensure_installed = { 'bash', 'c', 'javascript', 'typescript', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
-      auto_install = true,
-      highlight = {
-        enable = true,
-        additional_vim_regex_highlighting = { 'ruby' },
-      },
-      indent = { enable = true, disable = { 'ruby' } },
-    },
+    config = function()
+      local parsers = { 'bash', 'c', 'javascript', 'typescript', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'ruby' }
+      for _, parser in ipairs(parsers) do
+        require('nvim-treesitter').install(parser)
+      end
+
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = { 'bash', 'sh', 'c', 'javascript', 'typescript', 'typescriptreact', 'javascriptreact', 'diff', 'html', 'lua', 'markdown', 'query', 'vim', 'vimdoc', 'ruby' },
+        callback = function()
+          vim.treesitter.start()
+          if vim.bo.filetype ~= 'ruby' then
+            vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+          end
+        end,
+      })
+    end,
   },
   { 'tpope/vim-surround' },
   { 'tpope/vim-repeat' },
