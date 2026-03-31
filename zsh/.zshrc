@@ -195,3 +195,6 @@ chpwd() {
 }
 
 auto_venv
+
+# machine-specific overrides
+[[ -f ~/.zsh_aliases_local ]] && source ~/.zsh_aliases_local
