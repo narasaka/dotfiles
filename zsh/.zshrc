@@ -1,3 +1,5 @@
+typeset -U path
+
 export ZSH="/Users/narasaka/.oh-my-zsh"
 
 # zsh theme + plugins
