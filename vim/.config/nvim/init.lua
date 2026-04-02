@@ -25,10 +25,7 @@ local map = vim.api.nvim_set_keymap
 local defaultOpts = { noremap = true, silent = true }
 map('n', '<Esc>', '<cmd>nohlsearch<CR>', defaultOpts)
 map('n', '<leader>q', '<cmd>q<CR>', { desc = '[Q]uit' })
-map('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
-map('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
-map('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
-map('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+-- Pane navigation & resize handled by smart-splits.nvim (see plugin config below)
 map('n', '<leader>e', '<cmd>Oil<CR>', defaultOpts)
 map('n', 'gT', '<Cmd>BufferPrevious<CR>', defaultOpts)
 map('n', 'gt', '<Cmd>BufferNext<CR>', defaultOpts)
@@ -523,7 +520,31 @@ require('lazy').setup {
       scope = { enabled = false },
     },
   },
-  { 'christoomey/vim-tmux-navigator' },
+  {
+    'mrjones2014/smart-splits.nvim',
+    config = function()
+      require('smart-splits').setup {
+        default_amount = 3,
+        at_edge = 'wrap',
+      }
+
+      vim.keymap.set('n', '<C-h>', require('smart-splits').move_cursor_left)
+      vim.keymap.set('n', '<C-j>', require('smart-splits').move_cursor_down)
+      vim.keymap.set('n', '<C-k>', require('smart-splits').move_cursor_up)
+      vim.keymap.set('n', '<C-l>', require('smart-splits').move_cursor_right)
+      vim.keymap.set('n', '<C-\\>', require('smart-splits').move_cursor_previous)
+
+      vim.keymap.set('n', '<A-h>', require('smart-splits').resize_left)
+      vim.keymap.set('n', '<A-j>', require('smart-splits').resize_down)
+      vim.keymap.set('n', '<A-k>', require('smart-splits').resize_up)
+      vim.keymap.set('n', '<A-l>', require('smart-splits').resize_right)
+
+      vim.keymap.set('n', '<leader><leader>h', require('smart-splits').swap_buf_left)
+      vim.keymap.set('n', '<leader><leader>j', require('smart-splits').swap_buf_down)
+      vim.keymap.set('n', '<leader><leader>k', require('smart-splits').swap_buf_up)
+      vim.keymap.set('n', '<leader><leader>l', require('smart-splits').swap_buf_right)
+    end,
+  },
   { 'nvim-treesitter/nvim-treesitter-context' },
   {
     'kristijanhusak/vim-dadbod-ui',
