@@ -47,6 +47,12 @@ alias vim='nvim'
 alias dbui='nvim +DBUI'
 alias clear='clear && clear'
 
+# zellij: attach or create session named after current directory
+zj() {
+  local name="${1:-$(basename "$PWD")}"
+  zellij attach "$name" -c
+}
+
 if (( _IS_MAC )); then
   alias python='python3'
   alias pypy='pypy3'
