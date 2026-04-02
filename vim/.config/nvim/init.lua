@@ -300,7 +300,6 @@ require('lazy').setup {
           },
         },
         biome = {},
-        csharp_ls = {},
         ruff = {},
       }
 
