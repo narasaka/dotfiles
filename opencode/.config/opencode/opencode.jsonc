@@ -1,0 +1,35 @@
+{
+  "plugin": ["oh-my-openagent@latest"],
+  "$schema": "https://opencode.ai/config.json",
+  "model": "opencode/claude-opus-4-6",
+  "agent": {
+    "plan": {
+      "model": "opencode/claude-opus-4-6"
+    },
+    "build": {
+      "model": "opencode/claude-opus-4-6"
+    }
+  },
+  "autoupdate": true,
+  "mcp": {
+    "linear": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "mcp-remote",
+        "https://mcp.linear.app/mcp"
+      ]
+    },
+    "mgrep": {
+      "type": "local",
+      "command": [
+        "mgrep",
+        "mcp",
+        "--store",
+        "nate-mac"
+      ],
+      "enabled": false
+    }
+  }
+}

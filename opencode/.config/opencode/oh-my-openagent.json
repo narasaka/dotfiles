@@ -1,0 +1,77 @@
+{
+  "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-openagent/dev/assets/oh-my-openagent.schema.json",
+  "agents": {
+    "sisyphus": {
+      "model": "amazon-bedrock/us.anthropic.claude-opus-4-6-v1"
+    },
+    "sisyphus-junior": {
+      "model": "amazon-bedrock/us.anthropic.claude-opus-4-6-v1"
+    },
+    "plan": {
+      "model": "opencode/gpt-5.4"
+    },
+    "prometheus": {
+      "model": "amazon-bedrock/us.anthropic.claude-opus-4-6-v1",
+      "variant": "max"
+    },
+    "oracle": {
+      "model": "opencode/gpt-5.4",
+      "variant": "high"
+    },
+    "librarian": {
+      "model": "opencode/kimi-k2.5"
+    },
+    "explore": {
+      "model": "opencode/kimi-k2.5"
+    },
+    "multimodal-looker": {
+      "model": "opencode/gemini-3-flash"
+    },
+    "metis": {
+      "model": "amazon-bedrock/us.anthropic.claude-opus-4-6-v1",
+      "variant": "max"
+    },
+    "momus": {
+      "model": "opencode/gpt-5.4",
+      "variant": "medium"
+    },
+    "atlas": {
+      "model": "opencode/kimi-k2.5"
+    }
+  },
+  "categories": {
+    "visual-engineering": {
+      "model": "opencode/gemini-3.1-pro"
+    },
+    "ultrabrain": {
+      "model": "opencode/gpt-5.3-codex",
+      "variant": "xhigh"
+    },
+    "artistry": {
+      "model": "opencode/gemini-3.1-pro",
+      "variant": "max"
+    },
+    "quick": {
+      "model": "opencode/kimi-k2.5"
+    },
+    "unspecified-low": {
+      "model": "opencode/kimi-k2.5"
+    },
+    "unspecified-high": {
+      "model": "amazon-bedrock/us.anthropic.claude-opus-4-6-v1"
+    },
+    "writing": {
+      "model": "opencode/gemini-3-flash"
+    }
+  },
+  "git_master": {
+    "commit_footer": false,
+    "include_co_authored_by": false
+  },
+  "_migrations": [
+    "model-version:openai/gpt-5.2-codex->openai/gpt-5.3-codex",
+    "model-version:anthropic/claude-sonnet-4-5->anthropic/claude-sonnet-4-6",
+    "model-version:anthropic/claude-sonnet-4-5->anthropic/claude-sonnet-4-6",
+    "model-version:anthropic/claude-sonnet-4-5->anthropic/claude-sonnet-4-6"
+  ]
+}
