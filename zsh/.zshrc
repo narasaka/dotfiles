@@ -93,10 +93,17 @@ unset _gcloud_sdk
 # completions
 [[ -s "$HOME/.bun/_bun" ]] && source "$HOME/.bun/_bun"
 
-# auto venv activation on cd
+# auto venv activation/deactivation on cd
 auto_venv() {
   if [[ -d ".venv" ]]; then
-    . ".venv/bin/activate"
+    if [[ "$VIRTUAL_ENV" != "$PWD/.venv" ]]; then
+      . ".venv/bin/activate"
+    fi
+  elif [[ -n "$VIRTUAL_ENV" ]]; then
+    local venv_root="${VIRTUAL_ENV:h}"
+    if [[ "$PWD" != "$venv_root" && "$PWD" != "$venv_root/"* ]]; then
+      deactivate
+    fi
   fi
 }
 
