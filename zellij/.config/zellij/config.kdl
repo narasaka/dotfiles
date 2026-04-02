@@ -105,6 +105,7 @@ keybinds clear-defaults=true {
         bind "esc" { UndoRenamePane; SwitchToMode "tmux"; }
     }
     tmux {
+        bind "esc" { SwitchToMode "normal"; }
         bind "," { SwitchToMode "renametab"; }
         bind "-" { NewPane "down"; SwitchToMode "normal"; }
         bind "0" { GoToTab 1; SwitchToMode "normal"; }
