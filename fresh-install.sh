@@ -7,7 +7,7 @@
 # faster dock
 defaults write com.apple.dock autohide-delay -float 0; defaults write com.apple.dock autohide-time-modifier -int 0;killall Dock
 
-# Commit: d6eb239
+# Commit: d34f420
 
 
 brew install $(cat formula.txt)
