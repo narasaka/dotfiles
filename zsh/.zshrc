@@ -3,7 +3,7 @@ typeset -U path
 export ZSH="/Users/narasaka/.oh-my-zsh"
 
 # zsh theme + plugins
-ZSH_THEME="dpoggi"
+ZSH_THEME="dpoggee"
 plugins=(git web-search vi-mode)
 
 # vi-mode
