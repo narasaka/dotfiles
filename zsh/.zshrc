@@ -53,6 +53,29 @@ zj() {
   zellij attach "$name" -c
 }
 
+# zellij: auto-rename tab to running command or current directory (focused pane only)
+if [[ -n $ZELLIJ ]]; then
+  _zellij_pane_is_focused() {
+    [[ $(command zellij action list-panes --state 2>/dev/null \
+      | awk "/^terminal_${ZELLIJ_PANE_ID}[[:space:]]/ { print \$(NF-2) }") == "true" ]]
+  }
+
+  _zellij_tab_precmd() {
+    _zellij_pane_is_focused || return
+    local dir=${PWD##*/}
+    [[ $PWD == $HOME ]] && dir="~"
+    command zellij action rename-tab "$dir" &>/dev/null
+  }
+
+  _zellij_tab_preexec() {
+    _zellij_pane_is_focused || return
+    command zellij action rename-tab "$1" &>/dev/null
+  }
+
+  add-zsh-hook precmd _zellij_tab_precmd
+  add-zsh-hook preexec _zellij_tab_preexec
+fi
+
 if (( _IS_MAC )); then
   alias python='python3'
   alias pypy='pypy3'

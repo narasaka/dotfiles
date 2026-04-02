@@ -107,6 +107,8 @@ keybinds clear-defaults=true {
     tmux {
         bind "esc" { SwitchToMode "normal"; }
         bind "," { SwitchToMode "renametab"; }
+        bind "<" { MoveTab "left"; }
+        bind ">" { MoveTab "right"; }
         bind "-" { NewPane "down"; SwitchToMode "normal"; }
         bind "0" { GoToTab 1; SwitchToMode "normal"; }
         bind "1" { GoToTab 2; SwitchToMode "normal"; }
