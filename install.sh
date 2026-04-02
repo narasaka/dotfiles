@@ -1,3 +1,3 @@
 #!/bin/sh
 
-stow */ --no-folding
+LC_ALL=C stow */ --no-folding
