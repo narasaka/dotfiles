@@ -96,13 +96,27 @@ unset _gcloud_sdk
 # auto venv activation/deactivation on cd
 auto_venv() {
   if [[ -d ".venv" ]]; then
-    if [[ "$VIRTUAL_ENV" != "$PWD/.venv" ]]; then
+    if [[ "$VIRTUAL_ENV" != "$PWD/.venv" ]] || ! (( $+functions[deactivate] )); then
+      # deactivate current venv first (handles stale inherited venvs from zellij/tmux)
+      if [[ -n "$VIRTUAL_ENV" ]]; then
+        if (( $+functions[deactivate] )); then
+          deactivate
+        else
+          path=("${(@)path:#$VIRTUAL_ENV/bin}")
+          unset VIRTUAL_ENV VIRTUAL_ENV_PROMPT
+        fi
+      fi
       . ".venv/bin/activate"
     fi
   elif [[ -n "$VIRTUAL_ENV" ]]; then
     local venv_root="${VIRTUAL_ENV:h}"
     if [[ "$PWD" != "$venv_root" && "$PWD" != "$venv_root/"* ]]; then
-      deactivate
+      if (( $+functions[deactivate] )); then
+        deactivate
+      else
+        path=("${(@)path:#$VIRTUAL_ENV/bin}")
+        unset VIRTUAL_ENV VIRTUAL_ENV_PROMPT
+      fi
     fi
   fi
 }
