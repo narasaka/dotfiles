@@ -10,4 +10,6 @@ title = " "
 window-padding-x = 8
 window-padding-color = extend
 
+macos-option-as-alt = true
+
 keybind = global:ctrl+`=toggle_quick_terminal
