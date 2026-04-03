@@ -18,7 +18,9 @@
         "npx",
         "-y",
         "mcp-remote",
-        "https://mcp.linear.app/mcp"
+        "https://mcp.linear.app/mcp",
+        "--header",
+        "Authorization: Bearer ${LINEAR_API_KEY}"
       ]
     },
     "mgrep": {
