@@ -378,7 +378,7 @@ ok "pnpm"
 
 if ! has thefuck; then
   info "Installing thefuck via uv..."
-  uv tool install thefuck
+  uv tool install thefuck --python 3.11
 fi
 ok "thefuck"
 
