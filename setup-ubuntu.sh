@@ -12,6 +12,7 @@ set -euo pipefail
 # ─── Configuration ───────────────────────────────────────────────────────────
 
 GO_VERSION="1.26.1"
+SCRIPT_VERSION="0.0.1"
 DOTFILES_REPO="https://github.com/narasaka/dotfiles.git"
 DOTFILES_DIR="$HOME/.dotfiles"
 
@@ -40,6 +41,7 @@ fi
 ARCH="$(dpkg --print-architecture 2>/dev/null || echo amd64)"
 CODENAME="${UBUNTU_CODENAME:-${VERSION_CODENAME:-noble}}"
 
+info "Running setup-ubuntu v${SCRIPT_VERSION}"
 info "Setting up development environment on ${PRETTY_NAME:-Ubuntu}..."
 echo ""
 
