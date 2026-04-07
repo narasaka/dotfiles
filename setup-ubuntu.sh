@@ -12,7 +12,7 @@ set -euo pipefail
 # ─── Configuration ───────────────────────────────────────────────────────────
 
 GO_VERSION="1.26.1"
-SCRIPT_VERSION="0.0.1"
+SCRIPT_VERSION="0.0.2"
 DOTFILES_REPO="https://github.com/narasaka/dotfiles.git"
 DOTFILES_DIR="$HOME/.dotfiles"
 
