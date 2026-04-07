@@ -207,11 +207,8 @@ ok "Locale set to en_US.UTF-8"
 # ─── 4b. Ghostty terminfo ───────────────────────────────────────────────────
 
 if ! infocmp xterm-ghostty &>/dev/null; then
-  info "Installing Ghostty terminfo..."
-  curl -fsSL https://ghostty.org/xterm-ghostty.terminfo -o /tmp/xterm-ghostty.terminfo
-  tic -x /tmp/xterm-ghostty.terminfo
-  rm -f /tmp/xterm-ghostty.terminfo
-  ok "Ghostty terminfo"
+  warn "Ghostty terminfo not found. Run this from your Ghostty client:"
+  warn "  infocmp -x xterm-ghostty | ssh $(hostname) -- tic -x -"
 else
   ok "Ghostty terminfo (already installed)"
 fi
