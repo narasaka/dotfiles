@@ -369,7 +369,8 @@ ok "npm globals: typescript, typescript-language-server"
 info "Enabling pnpm via corepack..."
 npm install --global corepack@latest
 corepack enable pnpm
-ok "pnpm $(pnpm --version 2>/dev/null)"
+COREPACK_ENABLE_STRICT=0 corepack install -g pnpm@latest
+ok "pnpm"
 
 # ─── 20. Python tools (thefuck via uv) ──────────────────────────────────────
 
