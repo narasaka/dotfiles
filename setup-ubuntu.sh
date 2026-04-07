@@ -368,7 +368,7 @@ ok "npm globals: typescript, typescript-language-server"
 # ─── 19. pnpm ────────────────────────────────────────────────────────────────
 
 info "Installing pnpm..."
-npm install --global pnpm
+npm install --global --force pnpm
 ok "pnpm"
 
 # ─── 20. Python tools (thefuck via uv) ──────────────────────────────────────
