@@ -133,7 +133,7 @@ keybinds clear-defaults=true {
         bind "p" { GoToPreviousTab; SwitchToMode "normal"; }
         bind "x" { CloseFocus; SwitchToMode "normal"; }
         bind "s" {
-            LaunchOrFocusPlugin "zellij:session-manager" {
+            LaunchPlugin "zellij:session-manager" {
                 floating true
                 move_to_focused_tab true
             }
