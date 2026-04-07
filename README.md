@@ -16,7 +16,7 @@ my configs managed by [stow](https://www.gnu.org/software/stow/manual/stow.html)
 sets up a full dev environment on ubuntu 24.04 from scratch.
 
 ```
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/narasaka/dotfiles/main/setup-ubuntu.sh)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/narasaka/dotfiles/master/setup-ubuntu.sh)"
 ```
 
 this installs everything: apt packages, external repos (docker, tailscale, gcloud, etc.), go, rust, node (fnm), bun, neovim, cargo/go tools, oh-my-zsh, and applies all dotfiles via stow.

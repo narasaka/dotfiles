@@ -2,10 +2,10 @@
 # setup-ubuntu.sh — Reproduce narasaka's dev environment on Ubuntu 24.04
 #
 # Usage:
-#   bash -c "$(curl -fsSL https://raw.githubusercontent.com/narasaka/dotfiles/main/setup-ubuntu.sh)"
+#   bash -c "$(curl -fsSL https://raw.githubusercontent.com/narasaka/dotfiles/master/setup-ubuntu.sh)"
 #
 # Or download and run:
-#   curl -fsSL https://raw.githubusercontent.com/narasaka/dotfiles/main/setup-ubuntu.sh -o /tmp/setup-ubuntu.sh
+#   curl -fsSL https://raw.githubusercontent.com/narasaka/dotfiles/master/setup-ubuntu.sh -o /tmp/setup-ubuntu.sh
 #   bash /tmp/setup-ubuntu.sh
 set -euo pipefail
 
