@@ -71,6 +71,7 @@ if [[ ! -f /etc/apt/sources.list.d/1password.list ]]; then
 fi
 
 # Docker CE
+sudo rm -f /etc/apt/sources.list.d/docker.list
 if [[ ! -f /etc/apt/sources.list.d/docker.sources ]]; then
   info "  → Docker CE"
   sudo install -m 0755 -d /etc/apt/keyrings
