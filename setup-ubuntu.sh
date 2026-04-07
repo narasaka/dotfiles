@@ -364,12 +364,10 @@ info "Installing npm global packages..."
 npm install -g typescript typescript-language-server
 ok "npm globals: typescript, typescript-language-server"
 
-# ─── 19. pnpm via corepack ──────────────────────────────────────────────────
+# ─── 19. pnpm ────────────────────────────────────────────────────────────────
 
-info "Enabling pnpm via corepack..."
-npm install --global corepack@latest
-corepack enable pnpm
-COREPACK_ENABLE_STRICT=0 corepack install -g pnpm@latest
+info "Installing pnpm..."
+npm install --global pnpm
 ok "pnpm"
 
 # ─── 20. Python tools (thefuck via uv) ──────────────────────────────────────
