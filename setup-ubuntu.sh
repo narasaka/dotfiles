@@ -204,6 +204,18 @@ sudo locale-gen en_US.UTF-8 >/dev/null 2>&1
 sudo update-locale LANG=en_US.UTF-8 >/dev/null 2>&1
 ok "Locale set to en_US.UTF-8"
 
+# ─── 4b. Ghostty terminfo ───────────────────────────────────────────────────
+
+if ! infocmp xterm-ghostty &>/dev/null; then
+  info "Installing Ghostty terminfo..."
+  curl -fsSL https://ghostty.org/xterm-ghostty.terminfo -o /tmp/xterm-ghostty.terminfo
+  tic -x /tmp/xterm-ghostty.terminfo
+  rm -f /tmp/xterm-ghostty.terminfo
+  ok "Ghostty terminfo"
+else
+  ok "Ghostty terminfo (already installed)"
+fi
+
 # ─── 5. Go ───────────────────────────────────────────────────────────────────
 
 if ! has go; then
