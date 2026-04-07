@@ -32,6 +32,15 @@
         "nate-mac"
       ],
       "enabled": false
+    },
+    "datadog": {
+      "type": "remote",
+      "url": "https://mcp.us5.datadoghq.com/api/unstable/mcp-server/mcp",
+      "headers": {
+        "DD_API_KEY": "${DD_API_KEY}",
+        "DD_APPLICATION_KEY": "${DD_APPLICATION_KEY}"
+      },
+      "enabled": true
     }
   }
 }
