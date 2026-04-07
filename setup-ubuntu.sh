@@ -344,6 +344,12 @@ if ! has gws; then
 else
   ok "  gws (already installed)"
 fi
+if ! has rg; then
+  info "  → ripgrep"
+  cargo install ripgrep
+else
+  ok "  ripgrep (already installed)"
+fi
 ok "Cargo tools installed"
 
 # ─── 17. Bun global packages ────────────────────────────────────────────────
