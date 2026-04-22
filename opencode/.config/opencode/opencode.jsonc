@@ -1,13 +1,13 @@
 {
   "plugin": ["oh-my-openagent@latest"],
   "$schema": "https://opencode.ai/config.json",
-  "model": "opencode/claude-opus-4-6",
+  "model": "amazon-bedrock/us.anthropic.claude-opus-4-7",
   "agent": {
     "plan": {
-      "model": "opencode/claude-opus-4-6"
+      "model": "openai/gpt-5.4"
     },
     "build": {
-      "model": "opencode/claude-opus-4-6"
+      "model": "amazon-bedrock/us.anthropic.claude-opus-4-7"
     }
   },
   "autoupdate": true,
@@ -41,6 +41,11 @@
         "DD_APPLICATION_KEY": "${DD_APPLICATION_KEY}"
       },
       "enabled": true
+    },
+    "sentry": {
+      "type": "remote",
+      "url": "https://mcp.sentry.dev/mcp",
+      "oauth": {}
     }
   }
 }

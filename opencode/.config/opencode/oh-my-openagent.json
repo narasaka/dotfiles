@@ -2,63 +2,76 @@
   "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-openagent/dev/assets/oh-my-openagent.schema.json",
   "agents": {
     "sisyphus": {
-      "model": "amazon-bedrock/us.anthropic.claude-opus-4-6-v1"
+      "model": "amazon-bedrock/us.anthropic.claude-opus-4-7",
+      "variant": "xhigh"
     },
     "sisyphus-junior": {
-      "model": "amazon-bedrock/us.anthropic.claude-opus-4-6-v1"
+      "model": "opencode/kimi-k2.5"
     },
     "plan": {
-      "model": "opencode/gpt-5.4"
+      "model": "openai/gpt-5.4"
     },
     "prometheus": {
-      "model": "amazon-bedrock/us.anthropic.claude-opus-4-6-v1",
-      "variant": "max"
+      "model": "amazon-bedrock/us.anthropic.claude-opus-4-7",
+      "variant": "xhigh"
     },
     "oracle": {
-      "model": "opencode/gpt-5.4",
+      "model": "openai/gpt-5.4",
       "variant": "high"
     },
+    "hephaestus": {
+      "model": "openai/gpt-5.4",
+      "variant": "medium"
+    },
     "librarian": {
-      "model": "opencode/kimi-k2.5"
+      "model": "openai/gpt-5.4-mini-fast"
     },
     "explore": {
-      "model": "opencode/kimi-k2.5"
-    },
-    "multimodal-looker": {
-      "model": "opencode/gemini-3-flash"
+      "model": "openai/gpt-5.4-mini-fast"
     },
     "metis": {
-      "model": "amazon-bedrock/us.anthropic.claude-opus-4-6-v1",
-      "variant": "max"
+      "model": "amazon-bedrock/us.anthropic.claude-opus-4-7",
+      "variant": "xhigh"
     },
     "momus": {
-      "model": "opencode/gpt-5.4",
-      "variant": "medium"
+      "model": "openai/gpt-5.4",
+      "variant": "xhigh"
     },
     "atlas": {
       "model": "opencode/kimi-k2.5"
+    },
+    "multimodal-looker": {
+      "model": "openai/gpt-5.4",
+      "variant": "medium"
     }
   },
   "categories": {
     "visual-engineering": {
-      "model": "opencode/gemini-3.1-pro"
+      "model": "opencode/gemini-3.1-pro",
+      "variant": "high"
     },
     "ultrabrain": {
-      "model": "opencode/gpt-5.3-codex",
+      "model": "openai/gpt-5.4",
       "variant": "xhigh"
+    },
+    "deep": {
+      "model": "openai/gpt-5.4",
+      "variant": "medium"
     },
     "artistry": {
       "model": "opencode/gemini-3.1-pro",
-      "variant": "max"
+      "variant": "high"
     },
     "quick": {
-      "model": "opencode/kimi-k2.5"
+      "model": "openai/gpt-5.4-mini"
     },
     "unspecified-low": {
-      "model": "opencode/kimi-k2.5"
+      "model": "openai/gpt-5.4",
+      "variant": "medium"
     },
     "unspecified-high": {
-      "model": "amazon-bedrock/us.anthropic.claude-opus-4-6-v1"
+      "model": "amazon-bedrock/us.anthropic.claude-opus-4-7",
+      "variant": "xhigh"
     },
     "writing": {
       "model": "opencode/gemini-3-flash"
@@ -67,11 +80,5 @@
   "git_master": {
     "commit_footer": false,
     "include_co_authored_by": false
-  },
-  "_migrations": [
-    "model-version:openai/gpt-5.2-codex->openai/gpt-5.3-codex",
-    "model-version:anthropic/claude-sonnet-4-5->anthropic/claude-sonnet-4-6",
-    "model-version:anthropic/claude-sonnet-4-5->anthropic/claude-sonnet-4-6",
-    "model-version:anthropic/claude-sonnet-4-5->anthropic/claude-sonnet-4-6"
-  ]
+  }
 }
