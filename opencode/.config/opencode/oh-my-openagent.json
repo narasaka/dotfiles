@@ -3,7 +3,8 @@
   "agents": {
     "sisyphus": {
       "model": "amazon-bedrock/us.anthropic.claude-opus-4-7",
-      "variant": "xhigh"
+      "variant": "max",
+      "prompt_append": "IMPORTANT ENVIRONMENT CONSTRAINT: This is a headless Linux server with no GUI, no display server, and no browser available. You MUST NOT use Playwright, browser automation, or any browser-based tools for QA or verification of frontend work. Use alternative verification methods such as: examining generated HTML/CSS/JS source code directly, running linters, checking build output, using curl/http tools for server responses, or requesting the user to verify visually. Do not attempt to launch a browser or any tool that requires one."
     },
     "sisyphus-junior": {
       "model": "opencode/kimi-k2.5"
@@ -13,7 +14,7 @@
     },
     "prometheus": {
       "model": "amazon-bedrock/us.anthropic.claude-opus-4-7",
-      "variant": "xhigh"
+      "variant": "max"
     },
     "oracle": {
       "model": "openai/gpt-5.4",
@@ -21,7 +22,8 @@
     },
     "hephaestus": {
       "model": "openai/gpt-5.4",
-      "variant": "medium"
+      "variant": "medium",
+      "prompt_append": "IMPORTANT ENVIRONMENT CONSTRAINT: This is a headless Linux server with no GUI, no display server, and no browser available. You MUST NOT use Playwright, browser automation, or any browser-based tools for QA or verification of frontend work. Use alternative verification methods such as: examining generated HTML/CSS/JS source code directly, running linters, checking build output, using curl/http tools for server responses, or requesting the user to verify visually. Do not attempt to launch a browser or any tool that requires one."
     },
     "librarian": {
       "model": "openai/gpt-5.4-mini-fast"
