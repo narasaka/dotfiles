@@ -1,5 +1,5 @@
 {
-  "plugin": ["oh-my-openagent@latest"],
+  "plugin": ["oh-my-openagent@file:/home/narasaka/prog/fun/oss/oh-my-openagent"],
   "$schema": "https://opencode.ai/config.json",
   "model": "amazon-bedrock/us.anthropic.claude-opus-4-7",
   "agent": {
