@@ -47,6 +47,7 @@ alias vim='nvim'
 alias dbui='nvim +DBUI'
 alias clear='clear && clear'
 alias oc='opencode'
+alias lg='lazygit'
 
 # zellij: attach or create session named after current directory
 zj() {
@@ -153,6 +154,14 @@ auto_venv() {
 
 chpwd_functions+=(auto_venv)
 auto_venv
+
+function y() {
+  local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+  command yazi "$@" --cwd-file="$tmp"
+  IFS= read -r -d '' cwd < "$tmp"
+  [ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
+  rm -f -- "$tmp"
+}
 
 # machine-specific overrides
 [[ -f ~/.zsh_local ]] && source ~/.zsh_local
