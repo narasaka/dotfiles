@@ -21,11 +21,22 @@ vim.opt.wrap = false
 vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
 
+vim.g.clipboard = {
+  name = 'OSC 52',
+  copy = {
+    ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+    ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+  },
+  paste = {
+    ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
+    ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
+  },
+}
+
 local map = vim.api.nvim_set_keymap
 local defaultOpts = { noremap = true, silent = true }
 map('n', '<Esc>', '<cmd>nohlsearch<CR>', defaultOpts)
 map('n', '<leader>q', '<cmd>q<CR>', { desc = '[Q]uit' })
--- Pane navigation & resize handled by smart-splits.nvim (see plugin config below)
 map('n', '<leader>e', '<cmd>Oil<CR>', defaultOpts)
 map('n', 'gT', '<Cmd>BufferPrevious<CR>', defaultOpts)
 map('n', 'gt', '<Cmd>BufferNext<CR>', defaultOpts)
@@ -265,8 +276,14 @@ require('lazy').setup {
         pyright = {},
         rust_analyzer = {},
         tailwindcss = {
+          on_attach = function(client)
+            client.server_capabilities.semanticTokensProvider = nil
+            client.server_capabilities.colorProvider = false
+            client.server_capabilities.documentColorProvider = false
+          end,
           settings = {
             tailwindCSS = {
+              colorDecorators = false,
               experimental = {
                 classRegex = {
                   { 'cva\\(([^)]*)\\)', '["\'`]([^"\'`]*).*?["\'`]' },
@@ -451,7 +468,7 @@ require('lazy').setup {
     lazy = false,
     build = ':TSUpdate',
     config = function()
-      local parsers = { 'bash', 'c', 'javascript', 'typescript', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'ruby' }
+      local parsers = { 'bash', 'c', 'javascript', 'typescript', 'tsx', 'jsx', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'ruby' }
       for _, parser in ipairs(parsers) do
         require('nvim-treesitter').install(parser)
       end
