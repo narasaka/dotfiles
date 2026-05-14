@@ -1,13 +1,16 @@
 {
-  "plugin": ["oh-my-openagent@file:/home/narasaka/prog/fun/oss/oh-my-openagent"],
+  "plugin": [
+    "oh-my-openagent@file:/home/narasaka/prog/fun/oss/oh-my-openagent"
+  ],
   "$schema": "https://opencode.ai/config.json",
-  "model": "amazon-bedrock/us.anthropic.claude-opus-4-7",
+  "model": "amazon-bedrock/us.anthropic.claude-opus-4-6-v1",
   "agent": {
     "plan": {
-      "model": "openai/gpt-5.4"
+      "model": "openai/gpt-5.5"
     },
     "build": {
-      "model": "amazon-bedrock/us.anthropic.claude-opus-4-7"
+      "model": "amazon-bedrock/us.anthropic.claude-opus-4-6-v1",
+      "variant": "max"
     }
   },
   "autoupdate": true,
@@ -45,7 +48,8 @@
     "sentry": {
       "type": "remote",
       "url": "https://mcp.sentry.dev/mcp",
-      "oauth": {}
+      "oauth": {},
+      "enabled": true
     }
   }
 }
