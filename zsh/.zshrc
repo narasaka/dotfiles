@@ -55,6 +55,9 @@ zj() {
   zellij attach "$name" -c
 }
 
+# osc52 clipboard (copy to mac clipboard over ssh)
+pbcopy() { printf '\033]52;c;%s\a' "$(base64 | tr -d '\n')"; }
+
 # zellij: auto-rename tab to running command or current directory (focused pane only)
 if [[ -n $ZELLIJ ]]; then
   _zellij_pane_is_focused() {
@@ -109,6 +112,16 @@ FNM_PATH="$HOME/.local/share/fnm"
 command -v thefuck &>/dev/null && eval "$(thefuck --alias)"
 command -v fnm     &>/dev/null && eval "$(fnm env --use-on-cd --shell zsh)"
 command -v zoxide  &>/dev/null && eval "$(zoxide init zsh --cmd cd)"
+
+# list directory contents after changing directories
+(( $+aliases[cd] )) && unalias cd
+cd() {
+  if (( $+functions[__zoxide_z] )); then
+    __zoxide_z "$@" && command ls
+  else
+    builtin cd "$@" && command ls
+  fi
+}
 
 # google cloud sdk (lazy load)
 _gcloud_sdk="$HOME/Downloads/google-cloud-sdk"
