@@ -46,7 +46,8 @@ alias pytemp='cp ~/prog/templates/temp.py solve.py'
 alias vim='nvim'
 alias dbui='nvim +DBUI'
 alias clear='clear && clear'
-alias oc='opencode'
+alias oc='OPENCODE_DISABLE_PROJECT_CONFIG=1 opencode'
+alias ocp='opencode'
 alias lg='lazygit'
 
 # zellij: attach or create session named after current directory
