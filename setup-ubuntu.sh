@@ -167,7 +167,7 @@ APT_PACKAGES=(
   zsh zoxide stow locales
 
   # system utilities
-  btop lsof openssh-server fuse3 unzip xclip sysstat
+  btop lsof openssh-server fuse3 unzip xclip sysstat ufw
 
   # terminal fun
   neofetch toilet toilet-fonts
@@ -457,7 +457,37 @@ sudo groupadd docker 2>/dev/null || true
 sudo usermod -aG docker "$USER"
 ok "User added to docker group"
 
-# ─── 26. Default shell → zsh ────────────────────────────────────────────────
+# ─── 26. Security hardening ─────────────────────────────────────────────────
+
+info "Configuring firewall (UFW)..."
+sudo ufw default deny incoming >/dev/null
+sudo ufw default allow outgoing >/dev/null
+sudo ufw allow in on tailscale0 >/dev/null
+sudo ufw allow in on lo >/dev/null
+sudo ufw --force enable >/dev/null
+ok "UFW: deny incoming, allow Tailscale only"
+
+info "Blocking public traffic to Docker containers..."
+if ! grep -q "DOCKER-USER" /etc/ufw/after.rules 2>/dev/null; then
+  PUBLIC_IF=$(ip route show default | awk '/default/ {print $5}' | head -1)
+  cat >> /etc/ufw/after.rules <<DOCKERFW
+# Block unsolicited public internet traffic to Docker containers
+# while allowing return traffic for outbound connections (DNS, HTTPS, etc.)
+*filter
+:DOCKER-USER - [0:0]
+-A DOCKER-USER -m conntrack --ctstate ESTABLISHED,RELATED -j RETURN
+-A DOCKER-USER -i tailscale0 -j RETURN
+-A DOCKER-USER -i ${PUBLIC_IF} -j DROP
+-A DOCKER-USER -j RETURN
+COMMIT
+DOCKERFW
+  sudo ufw reload >/dev/null
+  ok "Docker: public interface (${PUBLIC_IF}) blocked via DOCKER-USER chain"
+else
+  ok "Docker: DOCKER-USER rules already present"
+fi
+
+# ─── 27. Default shell → zsh ────────────────────────────────────────────────
 
 if [[ "$SHELL" != *"zsh"* ]]; then
   info "Setting zsh as default shell..."
