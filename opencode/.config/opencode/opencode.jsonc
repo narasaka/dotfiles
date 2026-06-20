@@ -13,6 +13,21 @@
       "variant": "max"
     }
   },
+  "provider": {
+    "amazon-bedrock": {
+      "options": {
+        "region": "us-east-2"
+      },
+      "models": {
+        "openai.gpt-5.5": {
+          "provider": {
+            "npm": "@ai-sdk/amazon-bedrock/mantle",
+            "api": "https://bedrock-mantle.us-east-2.api.aws/openai/v1"
+          }
+        }
+      }
+    }
+  },
   "autoupdate": true,
   "mcp": {
     "linear": {
@@ -24,7 +39,8 @@
         "https://mcp.linear.app/mcp",
         "--header",
         "Authorization: Bearer ${LINEAR_API_KEY}"
-      ]
+      ],
+      "enabled": false
     },
     "mgrep": {
       "type": "local",
@@ -43,13 +59,13 @@
         "DD_API_KEY": "${DD_API_KEY}",
         "DD_APPLICATION_KEY": "${DD_APPLICATION_KEY}"
       },
-      "enabled": true
+      "enabled": false
     },
     "sentry": {
       "type": "remote",
       "url": "https://mcp.sentry.dev/mcp",
       "oauth": {},
-      "enabled": true
+      "enabled": false
     }
   }
 }
