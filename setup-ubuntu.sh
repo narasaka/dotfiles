@@ -471,13 +471,15 @@ info "Blocking public traffic to Docker containers..."
 if ! grep -q "DOCKER-USER" /etc/ufw/after.rules 2>/dev/null; then
   PUBLIC_IF=$(ip route show default | awk '/default/ {print $5}' | head -1)
   cat >> /etc/ufw/after.rules <<DOCKERFW
-# Block unsolicited public internet traffic to Docker containers
-# while allowing return traffic for outbound connections (DNS, HTTPS, etc.)
+# Block unsolicited public internet traffic to Docker containers.
+# The public DROP must be scoped to ctstate NEW: a blanket DROP also kills
+# forwarded outbound traffic from bridge networks (e.g. k3d -> DNS/PyPI).
 *filter
 :DOCKER-USER - [0:0]
 -A DOCKER-USER -m conntrack --ctstate ESTABLISHED,RELATED -j RETURN
 -A DOCKER-USER -i tailscale0 -j RETURN
--A DOCKER-USER -i ${PUBLIC_IF} -j DROP
+-A DOCKER-USER -i lo -j RETURN
+-A DOCKER-USER -i ${PUBLIC_IF} -m conntrack --ctstate NEW -j DROP
 -A DOCKER-USER -j RETURN
 COMMIT
 DOCKERFW
