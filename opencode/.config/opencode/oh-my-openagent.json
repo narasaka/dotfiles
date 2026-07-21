@@ -2,6 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-openagent/dev/assets/oh-my-openagent.schema.json",
   "agents": {
     "sisyphus": {
+      "displayName": "ADHD",
       "model": "amazon-bedrock/us.anthropic.claude-opus-4-8",
       "variant": "max"
     },
@@ -9,6 +10,7 @@
       "model": "openai/gpt-5.5"
     },
     "prometheus": {
+      "displayName": "Griller",
       "model": "amazon-bedrock/us.anthropic.claude-opus-4-8",
       "variant": "max"
     },
@@ -17,6 +19,7 @@
       "variant": "high"
     },
     "hephaestus": {
+      "displayName": "Autistic",
       "model": "openai/gpt-5.6-sol", 
       "variant": "medium"
     },
@@ -35,6 +38,7 @@
       "variant": "xhigh"
     },
     "atlas": {
+      "displayName": "Executor",
       "model": "opencode/kimi-k2.6"
     },
     "multimodal-looker": {
@@ -67,8 +71,7 @@
       "variant": "xhigh"
     },
     "unspecified-high": {
-      "model": "amazon-bedrock/us.anthropic.claude-opus-4-8",
-      "variant": "max"
+      "model": "opencode/kimi-k2.7-code"
     },
     "writing": {
       "model": "opencode/gemini-3-flash"
@@ -80,11 +83,5 @@
   },
   "sisyphus_agent": {
     "default_builder_enabled": false
-  },
-  "disabled_skills": [
-    "playwright",
-    "playwright-cli",
-    "agent-browser",
-    "dev-browser"
-  ]
+  }
 }
