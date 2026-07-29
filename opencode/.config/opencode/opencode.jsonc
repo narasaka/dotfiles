@@ -2,7 +2,7 @@
   "plugin": [
     // "oh-my-openagent@file:/home/narasaka/prog/fun/oss/oh-my-openagent"
     // "oh-my-openagent@latest" // <- resolves ONCE then freezes; bump the pin below to update
-    "oh-my-openagent@4.19.0"
+    "oh-my-openagent@4.19.3"
   ],
   "$schema": "https://opencode.ai/config.json",
   "default_agent": "Autistic",
