@@ -1,8 +1,9 @@
 copy-on-select = true
 cursor-style-blink = false
 font-family = FiraCode Nerd Font Mono
+font-family = Noto Sans Symbols 2
 font-feature = -calt
-font-size = 12
+font-size = 11
 mouse-hide-while-typing = true
 macos-titlebar-proxy-icon = hidden
 theme = Jellybeans
