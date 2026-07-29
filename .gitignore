@@ -1,2 +1,4 @@
 zsh/.scripts/secret
 karabiner/.config/karabiner/automatic_backups/
+!opencode/.omo/
+!opencode/.omo/omo.jsonc
