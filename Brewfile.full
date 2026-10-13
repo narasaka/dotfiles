@@ -1,0 +1,119 @@
+# Brewfile.full — everything else, installed on top of Brewfile
+#   brew bundle --file=~/.dotfiles/Brewfile.full
+
+tap "go-task/tap"
+tap "goreleaser/tap"
+tap "infisical/get-cli"
+tap "stripe/stripe-cli"
+
+# languages & toolchains
+brew "llvm"
+brew "cmake"
+brew "ninja"
+brew "ccache"
+brew "lua"
+brew "luarocks"
+brew "zig"
+brew "erlang"
+brew "gleam"
+brew "golangci-lint"
+brew "biome"
+brew "yarn"
+brew "nx"
+brew "protobuf"
+
+# mobile (react native / ios / android)
+brew "rbenv"
+brew "cocoapods"
+brew "watchman"
+brew "openjdk@17"
+
+# databases
+brew "postgresql@17"
+brew "redis"
+brew "sqlc"
+brew "dbmate"
+
+# cloud & deploy
+brew "act"
+brew "minikube"
+brew "railway"
+brew "vercel"
+brew "go-task/tap/go-task"
+brew "infisical/get-cli/infisical"
+brew "stripe/stripe-cli/stripe"
+cask "goreleaser/tap/goreleaser"
+cask "ngrok"
+cask "cloudflare-warp"
+
+# ai
+brew "ollama"
+
+# media & docs
+brew "ffmpeg"
+brew "imagemagick"
+brew "yt-dlp"
+brew "tesseract"
+brew "pdfcpu"
+brew "monolith"
+
+# networking
+brew "rclone"
+brew "oha"
+brew "openvpn"
+brew "torsocks"
+brew "transmission-cli"
+
+# git extras
+brew "git-filter-repo"
+brew "git-who"
+
+# terminal fun
+brew "htop"
+brew "fastfetch"
+brew "toilet"
+brew "cowsay"
+brew "chafa"
+brew "jp2a"
+brew "w3m"
+brew "slides"
+brew "stockfish"
+brew "sherlock"
+
+# browsers
+cask "arc"
+cask "zen"
+cask "google-chrome"
+
+# editors & dev apps
+cask "cursor"
+cask "zed"
+cask "vscodium@insiders"
+cask "visual-studio-code"
+cask "beekeeper-studio"
+cask "httpie-desktop"
+cask "postman"
+cask "foxglove"
+cask "dotnet-sdk"
+
+# productivity & comms
+cask "rectangle-pro"
+cask "claude"
+cask "slack"
+cask "legcord"
+cask "linear-linear"
+cask "notion"
+cask "anytype"
+cask "figma"
+
+# remote access
+cask "anydesk"
+cask "rustdesk"
+cask "windows-app"
+
+# media & utilities
+cask "cap"
+cask "gimp"
+cask "inkscape"
+cask "handbrake-app"
+cask "balenaetcher"
