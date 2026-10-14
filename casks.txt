@@ -1,1 +1,0 @@
-anydesk anytype balenaetcher beekeeper-studio cap cloudflare-warp cursor dotnet-sdk font-fira-code-nerd-font font-hack-nerd-font foxglove gcloud-cli ghostty gimp handbrake-app httpie-desktop inkscape legcord rustdesk tailscale-app vscodium@insiders windows-app zed zen zoom goreleaser/tap/goreleaser
