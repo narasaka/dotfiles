@@ -28,8 +28,6 @@ tailscale up
 op signin
 op-ssh-load
 gh auth login
-gcloud auth login
-doppler login
 ```
 
 the script is idempotent -- safe to re-run.
@@ -56,8 +54,6 @@ after it finishes, open 1password, tailscale, docker and karabiner once to sign 
 
 ```
 gh auth login
-gcloud auth login
-doppler login
 ```
 
 the script is idempotent -- safe to re-run.
