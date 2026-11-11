@@ -50,9 +50,49 @@ alias oc='OPENCODE_DISABLE_PROJECT_CONFIG=1 opencode'
 alias ocp='opencode'
 alias lg='lazygit'
 
+# zellij: remember the last explicitly attached session
+_zellij_remember_session() {
+  local state_dir="${XDG_STATE_HOME:-$HOME/.local/state}/zellij"
+
+  mkdir -p "$state_dir"
+  printf '%s\n' "$1" > "$state_dir/last-attached"
+}
+
+# zellij: bare `attach` resumes the last explicitly attached session
+zellij() {
+  local state_dir="${XDG_STATE_HOME:-$HOME/.local/state}/zellij"
+  local state_file="$state_dir/last-attached"
+
+  if [[ ( "$1" == "a" || "$1" == "attach" ) && $# -eq 1 && -r "$state_file" ]]; then
+    local previous="$(<"$state_file")"
+
+    if command zellij list-sessions --short --no-formatting 2>/dev/null \
+      | command grep -Fxq -- "$previous"; then
+      command zellij attach "$previous"
+      return
+    fi
+  fi
+
+  if [[ ( "$1" == "a" || "$1" == "attach" ) && $# -ge 2 && "$2" != -* ]]; then
+    local requested="$2"
+    command zellij "$@"
+    local status=$?
+
+    if (( status == 0 )); then
+      _zellij_remember_session "$requested"
+    fi
+
+    return $status
+  fi
+
+  command zellij "$@"
+}
+
 # zellij: attach or create session named after current directory
 zj() {
   local name="${1:-$(basename "$PWD")}"
+
+  _zellij_remember_session "$name"
   zellij attach "$name" -c
 }
 
