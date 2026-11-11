@@ -270,6 +270,59 @@ require('lazy').setup {
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
+      local default_ts_ls = vim.lsp.config.ts_ls
+      local node_markers = { 'package.json', 'tsconfig.json', 'jsconfig.json' }
+      local bun_types_dir = vim.fn.stdpath 'data' .. '/bun-types'
+
+      local function with_bun_types(callback)
+        if vim.uv.fs_stat(bun_types_dir .. '/node_modules/@types/bun') then
+          return callback()
+        end
+        vim.fn.mkdir(bun_types_dir, 'p')
+        if not vim.uv.fs_stat(bun_types_dir .. '/package.json') then
+          vim.fn.writefile({ '{}' }, bun_types_dir .. '/package.json')
+        end
+        vim.system({ 'bun', 'add', '@types/bun' }, { cwd = bun_types_dir }, function(result)
+          if result.code == 0 then
+            vim.schedule(callback)
+          else
+            vim.schedule(function()
+              vim.notify('Failed to install @types/bun: ' .. result.stderr, vim.log.levels.WARN)
+            end)
+          end
+        end)
+      end
+
+      -- Files outside any node project land in ts_ls inferred projects; give those Bun's globals and settings.
+      local function use_bun_types(client)
+        client:request('workspace/executeCommand', {
+          command = 'typescript.tsserverRequest',
+          arguments = {
+            'compilerOptionsForInferredProjects',
+            {
+              options = {
+                lib = { 'lib.esnext.d.ts' },
+                target = 'ESNext',
+                module = 'Preserve',
+                moduleDetection = 'force',
+                moduleResolution = 'Bundler',
+                jsx = 'react-jsx',
+                allowJs = true,
+                allowImportingTsExtensions = true,
+                allowNonTsExtensions = true,
+                allowSyntheticDefaultImports = true,
+                resolveJsonModule = true,
+                noEmit = true,
+                strict = true,
+                skipLibCheck = true,
+                types = { 'bun' },
+                typeRoots = { bun_types_dir .. '/node_modules/@types' },
+              },
+            },
+          },
+        }, function() end)
+      end
+
       local servers = {
         clangd = {},
         gopls = {},
@@ -293,18 +346,29 @@ require('lazy').setup {
           },
         },
         ts_ls = {
-          on_attach = function(client)
+          on_attach = function(client, bufnr)
             client.server_capabilities.documentFormattingProvider = false
+            default_ts_ls.on_attach(client, bufnr)
           end,
-          root_dir = require('lspconfig').util.root_pattern { 'package.json', 'tsconfig.json' },
-          single_file_support = false,
-          settings = {},
+          root_dir = function(bufnr, on_dir)
+            default_ts_ls.root_dir(bufnr, function(root)
+              local node_root = vim.fs.root(bufnr, node_markers)
+              if node_root then
+                return on_dir(vim.fs.root(root, node_markers) and root or node_root)
+              end
+              local fname = vim.api.nvim_buf_get_name(bufnr)
+              on_dir(vim.fs.root(bufnr, '.git') or (fname ~= '' and vim.fs.dirname(fname)) or vim.fn.getcwd())
+            end)
+          end,
+          on_init = function(client)
+            if not vim.fs.root(client.root_dir, node_markers) and vim.fn.executable 'bun' == 1 then
+              with_bun_types(function()
+                use_bun_types(client)
+              end)
+            end
+          end,
         },
-        denols = {
-          root_dir = require('lspconfig').util.root_pattern { 'deno.json', 'deno.jsonc' },
-          single_file_support = false,
-          settings = {},
-        },
+        denols = {},
         lua_ls = {
           settings = {
             Lua = {
@@ -327,15 +391,11 @@ require('lazy').setup {
         'stylua',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
-      require('mason-lspconfig').setup {
-        handlers = {
-          function(server_name)
-            local server = servers[server_name] or {}
-            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            require('lspconfig')[server_name].setup(server)
-          end,
-        },
-      }
+      for server_name, server in pairs(servers) do
+        server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+        vim.lsp.config(server_name, server)
+      end
+      require('mason-lspconfig').setup()
     end,
   },
   {
