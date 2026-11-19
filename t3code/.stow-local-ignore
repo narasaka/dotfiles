@@ -1,0 +1,5 @@
+# Nothing in this package is symlinked into ~: T3 Code won't load symlinked
+# theme files. Run ./t3code/install-theme.sh to copy the theme in instead.
+\.stow-local-ignore
+themes
+install-theme\.sh

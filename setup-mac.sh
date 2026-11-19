@@ -226,6 +226,11 @@ step_dotfiles() {
   ok "Dotfiles applied"
 }
 
+step_t3_theme() {
+  "$DOTFILES_DIR/t3code/install-theme.sh"
+  ok "T3 Code theme"
+}
+
 step_tmux_plugins() {
   if [[ ! -d "$HOME/.tmux/plugins/tpm" ]]; then
     info "Installing tmux plugin manager..."
@@ -390,6 +395,7 @@ run_step "gcloud components"    step_gcloud
 
 run_step "Oh My Zsh"            step_ohmyzsh
 run_step "Dotfiles (stow)"      step_dotfiles
+run_step "T3 Code theme"        step_t3_theme
 run_step "tmux plugins"         step_tmux_plugins
 run_step "Neovim plugins"       step_nvim_plugins
 

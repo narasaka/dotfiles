@@ -66,3 +66,13 @@ the script is idempotent -- safe to re-run.
 
 this runs `stow */ --no-folding` to symlink everything into `~`.
 
+## t3 code theme
+
+`t3code/` holds my T3 Code theme, "Mono B&W": black and white, monospace everywhere, and a dithered planet behind the chat. both setup scripts install it. to install it by hand:
+
+```
+./t3code/install-theme.sh
+```
+
+it copies the theme into `~/.t3/userdata/themes/` and makes it the active theme. it works before T3 Code's first launch, and a running app switches live. the files are copied, not stowed, because T3 Code won't load theme files that are symlinks. after changing the theme in the app, copy `~/.t3/userdata/themes/mono-bw.{json,png}` back into `t3code/themes/`.
+

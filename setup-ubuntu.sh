@@ -421,6 +421,9 @@ cd "$DOTFILES_DIR"
 LC_ALL=C stow */ --no-folding
 ok "Dotfiles applied"
 
+info "Installing T3 Code theme..."
+"$DOTFILES_DIR/t3code/install-theme.sh" && ok "T3 Code theme" || warn "T3 Code theme failed"
+
 # ─── 23. Cargo env in .zshenv ───────────────────────────────────────────────
 
 if ! grep -q 'cargo/env' "$HOME/.zshenv" 2>/dev/null; then
